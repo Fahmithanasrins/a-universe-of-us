@@ -1,3 +1,4 @@
+importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
 const CACHE_NAME = "a-universe-of-us-v1";
 const APP_SHELL = [
   "./",
