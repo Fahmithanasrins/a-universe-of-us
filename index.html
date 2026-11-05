@@ -1,0 +1,3232 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Universe of Us</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #050610;
+  color: white;
+  font-family: Georgia, serif;
+}
+
+/* ================= HOME PAGE ================= */
+
+#home {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 50% 45%, #292044, #100e20 50%, #050610);
+  overflow: hidden;
+}
+
+.home-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.home-star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #fff4d2;
+  box-shadow: 0 0 7px 2px #fff1c0;
+  animation: twinkle 3s infinite alternate;
+}
+
+.moon {
+  font-size: 65px;
+  color: #f7dfaa;
+  text-shadow: 0 0 30px #d7ad65;
+  margin-bottom: 25px;
+}
+
+.eyebrow {
+  color: #d6b77b;
+  letter-spacing: 5px;
+  font-size: 11px;
+  margin-bottom: 25px;
+}
+
+.home-title {
+  font-size: clamp(42px, 9vw, 72px);
+  line-height: 1.1;
+  font-weight: normal;
+  color: #f8e8c9;
+}
+
+.home-title span {
+  display: block;
+  font-style: italic;
+  color: #d8b77c;
+}
+
+.home-divider {
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #d8b77c, transparent);
+  margin: 28px auto;
+}
+
+.home-subtitle {
+  font-size: 15px;
+  letter-spacing: 2px;
+  color: #c9bfd4;
+  line-height: 2;
+}
+
+.enter-btn {
+  margin-top: 40px;
+  padding: 15px 35px;
+  border: 1px solid #c8a76b;
+  background: transparent;
+  color: #f5dfb2;
+  letter-spacing: 3px;
+  font-family: Georgia, serif;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.enter-btn:hover {
+  background: #c8a76b22;
+  box-shadow: 0 0 25px #d8b77c55;
+}
+
+.home-footer {
+  position: absolute;
+  bottom: 30px;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: #897d9d;
+}
+
+/* ================= GALAXY PAGE ================= */
+
+#galaxy {
+  display: none;
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding-bottom: 40px;
+
+  background:
+    radial-gradient(ellipse at 50% 45%, #302448 0%, transparent 55%),
+    radial-gradient(ellipse at 15% 20%, #172344 0%, transparent 45%),
+    radial-gradient(ellipse at 90% 80%, #321d3c 0%, transparent 40%),
+    #050610;
+}
+
+.header {
+  text-align: center;
+  padding: 35px 12px 10px;
+  position: relative;
+  z-index: 5;
+}
+
+.header h1 {
+  font-size: clamp(27px, 5vw, 40px);
+  font-weight: normal;
+  color: #f5dfb2;
+  letter-spacing: 3px;
+  text-shadow: 0 0 18px #d8b77c55;
+}
+
+.header p {
+  margin-top: 12px;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: #c2b4d4;
+}
+
+.progress {
+  margin-top: 17px;
+  color: #e3c98f;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+/* WORD CONSTELLATION */
+
+.universe-scroll {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0 8px 8px;
+  scrollbar-width: thin;
+  scrollbar-color: #9c8054 #100e20;
+}
+
+.universe {
+  width: min(96vw, 1200px);
+  min-width: 1100px;
+  margin: 20px auto 0;
+  position: relative;
+  aspect-ratio: 3 / 1;
+}
+
+#connection-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+#star-layer {
+  position: absolute;
+  inset: 0;
+}
+
+
+/* Soft twinkling galaxy background for page two */
+
+
+.ambient-stars {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ambient-dot {
+  position: absolute;
+  width: var(--dot-size);
+  height: var(--dot-size);
+  left: var(--dot-x);
+  top: var(--dot-y);
+  border-radius: 50%;
+  background: rgba(255, 239, 200, 0.9);
+  box-shadow:
+    0 0 5px 2px rgba(255, 230, 170, 0.35),
+    0 0 12px 4px rgba(255, 220, 150, 0.16);
+  opacity: 0.15;
+  filter: blur(var(--dot-blur));
+  animation: ambientTwinkle var(--dot-speed) ease-in-out infinite;
+  animation-delay: var(--dot-delay);
+}
+
+@keyframes ambientTwinkle {
+  0%, 100% {
+    opacity: 0.12;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.4);
+  }
+}
+
+
+/* INDIVIDUAL CLICKABLE STARS */
+
+.day-star {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 13px;
+  height: 13px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: transform .2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.star-symbol {
+  display: block;
+  font-family: Georgia, serif;
+  font-size: var(--star-size, 9px);
+  line-height: 1;
+  color: #fff0bd;
+
+  text-shadow:
+    0 0 3px #ffffff,
+    0 0 7px #ffe5a0,
+    0 0 13px #e8bd72;
+
+  animation: starShine var(--twinkle-speed, 2s) ease-in-out infinite alternate;
+}
+
+.day-star:hover,
+.day-star:focus-visible {
+  transform: translate(-50%, -50%) scale(1.65);
+  z-index: 10;
+  outline: none;
+}
+
+.day-star:hover .star-symbol,
+.day-star:focus-visible .star-symbol {
+  color: #ffffff;
+  text-shadow:
+    0 0 5px white,
+    0 0 15px #ffe5a2,
+    0 0 25px #ffe5a2;
+}
+
+.day-star.visited .star-symbol {
+  color: #ffda86;
+}
+
+@keyframes starShine {
+  from {
+    opacity: .78;
+    filter: brightness(.9);
+  }
+  to {
+    opacity: 1;
+    filter: brightness(1.4);
+  }
+}
+
+@keyframes twinkle {
+  from { opacity: .25; }
+  to { opacity: 1; }
+}
+
+.galaxy-note {
+  text-align: center;
+  padding: 35px 15px 20px;
+  color: #c2b4d4;
+  font-size: 12px;
+  letter-spacing: 2px;
+  line-height: 2;
+}
+
+/* ================= MESSAGE POPUP ================= */
+
+#message-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: #02030bdd;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.message-card {
+  width: min(420px, 100%);
+  padding: 38px 27px;
+  text-align: center;
+  background: linear-gradient(145deg, #211b35, #0b1020);
+  border: 1px solid #c7a76d88;
+  box-shadow: 0 0 35px #c9a76d22;
+}
+
+.message-card small {
+  color: #d7b979;
+  letter-spacing: 4px;
+}
+
+.message-card h2 {
+  margin: 20px 0;
+  font-size: 30px;
+  font-weight: normal;
+  color: #f5dfb2;
+}
+
+.message-card p {
+  color: #e0d6e8;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.close-btn {
+  margin-top: 28px;
+  padding: 10px 28px;
+  background: transparent;
+  border: 1px solid #c7a76d;
+  color: #e8d2a5;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+
+/* ================= FINAL CRESCENT MOON SURPRISE ================= */
+
+.final-moon-section {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px 42px;
+  text-align: center;
+}
+
+.final-moon-button {
+  position: relative;
+  width: 112px;
+  height: 112px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 50%;
+  -webkit-tap-highlight-color: transparent;
+  filter: drop-shadow(0 0 12px rgba(232, 190, 112, .35));
+  animation: moonFloat 4s ease-in-out infinite;
+}
+
+.final-moon-button svg {
+  width: 76px;
+  height: 76px;
+  overflow: visible;
+}
+
+.final-moon-button:hover,
+.final-moon-button:focus-visible {
+  transform: scale(1.12);
+  outline: none;
+  filter: drop-shadow(0 0 18px rgba(255, 220, 151, .8));
+}
+
+.final-moon-button:focus-visible {
+  outline: 1px solid #d8b77c;
+  outline-offset: 5px;
+}
+
+.final-moon-caption {
+  margin-top: 2px;
+  color: #d8c49f;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-shadow: 0 0 12px rgba(216, 183, 124, .35);
+}
+
+@keyframes moonFloat {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -5px; }
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .universe {
+    width: 100%;
+    aspect-ratio: 2.5 / 1;
+    margin-top: 45px;
+  }
+
+  .day-star {
+    width: 16px;
+    height: 16px;
+  }
+
+  .star-symbol {
+    font-size: 14px;
+  }
+
+  .galaxy-note {
+    padding-top: 35px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HOME PAGE -->
+
+<section id="home">
+
+  <div class="home-stars" id="homeStars"></div>
+
+  <div class="moon">☾</div>
+
+  <div class="eyebrow">
+    A STORY WRITTEN IN THE STARS
+  </div>
+
+  <h1 class="home-title">
+    A Universe
+    <span>of Us</span>
+  </h1>
+
+  <div class="home-divider"></div>
+
+  <p class="home-subtitle">
+    365 little reminders.<br>
+    One endless love.
+  </p>
+
+  <button class="enter-btn" onclick="enterUniverse()">
+    ENTER OUR UNIVERSE
+  </button>
+
+  <div class="home-footer">
+    MADE WITH LOVE · FOR YOU
+  </div>
+
+</section>
+
+
+<!-- GALAXY PAGE -->
+
+<section id="galaxy">
+
+  <header class="header">
+    <h1>You are my universe</h1>
+
+    <p>
+      365 STARS · ONE SENTENCE · INFINITE LOVE
+    </p>
+
+    <div class="progress" id="progress">
+      0 / 365 STARS DISCOVERED
+    </div>
+  </header>
+
+  <div class="universe-scroll" aria-label="Star constellation. Scroll horizontally on smaller screens.">
+  <div class="universe">
+
+    <svg id="connection-lines"
+         viewBox="0 0 1200 400"
+         preserveAspectRatio="xMidYMid meet">
+    </svg>
+
+    <div class="ambient-stars" id="ambient-stars"></div>
+    <div id="star-layer"></div>
+
+  </div>
+  </div>
+
+  <div class="galaxy-note">
+    Every star has a place.<br>
+    Every little light leads back to you.
+  </div>
+
+  <!-- A separate final surprise: this moon is not part of the 365 daily stars. -->
+  <div class="final-moon-section">
+    <button class="final-moon-button"
+            type="button"
+            aria-label="Open the message beyond 365 days"
+            onclick="openFinalMessage()">
+      <svg viewBox="0 0 100 100" role="img" aria-hidden="true">
+        <defs>
+          <linearGradient id="moonGold" x1="15%" y1="10%" x2="85%" y2="90%">
+            <stop offset="0%" stop-color="#fff4cf"/>
+            <stop offset="42%" stop-color="#f0d18e"/>
+            <stop offset="100%" stop-color="#b98745"/>
+          </linearGradient>
+          <filter id="moonGlow" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="3.2" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+        <path d="M65 9
+                 A39 39 0 1 0 88 72
+                 A32 32 0 0 1 65 9Z"
+              fill="url(#moonGold)"
+              filter="url(#moonGlow)"/>
+        <g fill="#fff0c4">
+          <circle cx="24" cy="28" r="1.5"/>
+          <circle cx="19" cy="54" r="1.1"/>
+          <circle cx="48" cy="83" r="1.2"/>
+          <circle cx="76" cy="23" r="1.1"/>
+        </g>
+        <g stroke="#ffe8ad" stroke-width="1.2" stroke-linecap="round">
+          <path d="M18 15v7 M14.5 18.5h7"/>
+          <path d="M79 48v6 M76 51h6"/>
+          <path d="M37 8v5 M34.5 10.5h5"/>
+        </g>
+      </svg>
+    </button>
+    <div class="final-moon-caption">Beyond the stars, it's still you</div>
+  </div>
+
+</section>
+
+
+<!-- MESSAGE WINDOW -->
+
+<div id="message-modal" onclick="closeOutside(event)">
+
+  <div class="message-card">
+
+    <small id="day-label">DAY 001</small>
+
+    <h2 id="message-title">A little piece of us</h2>
+
+    <p id="message-text"></p>
+
+    <button class="close-btn" onclick="closeMessage()">
+      CLOSE
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+/* A Universe of Us — 365 daily messages
+   Day 001: 2026-11-24 | Day 365: 2027-11-23
+   Usage: include this file before the script that defines openMessage(day).
+*/
+const dailyMessages = [
+  {
+    "day": 1,
+    "date": "2026-11-24",
+    "title": "Two reasons to celebrate you",
+    "message": "Happy Birthday, Mama. ❤️ Today the world gets to celebrate the day you arrived, and I get to celebrate the day our story became ours. You are one of my favourite parts of this life, and I hope this new year brings you health, courage, success, peace, and every beautiful thing your heart has been quietly wishing for. Happy birthday, my love, and happy anniversary to us. May we keep collecting little moments that become our forever memories."
+  },
+  {
+    "day": 2,
+    "date": "2026-11-25",
+    "title": "Something I admire",
+    "message": "I hope this message feels like a gentle hand in yours, because I notice the little things: your expressions, your humour, your habits, and the way an ordinary moment becomes a memory with you. I hope you feel loved, believed in, and a little less alone today."
+  },
+  {
+    "day": 3,
+    "date": "2026-11-26",
+    "title": "The smallest details",
+    "message": "My love, even on an ordinary day like this, I wish you more mornings that feel hopeful, more evenings that feel calm, and more reasons to laugh without holding back. Keep going, my love; I believe in the person you are becoming."
+  },
+  {
+    "day": 4,
+    "date": "2026-11-27",
+    "title": "A place to breathe",
+    "message": "If I were sitting beside you right now, I would tell you: even if today is messy, it is only one page; it cannot decide the ending of your story. You are loved on your ordinary days, too. Especially on those days. ❤️"
+  },
+  {
+    "day": 5,
+    "date": "2026-11-28",
+    "title": "A heartful reminder",
+    "message": "You might not notice it every day, but you are allowed to grow at your own pace; your life is not a race and your dreams are still worth reaching for. Take a breath, lift your head, and give tomorrow another chance."
+  },
+  {
+    "day": 6,
+    "date": "2026-11-29",
+    "title": "A little courage",
+    "message": "If today has been a long one, baby, your kindness, your silly side, your determination, and your imperfect human moments are all part of the person I cherish. I'm always cheering for you, one little day at a time. ❤️"
+  },
+  {
+    "day": 7,
+    "date": "2026-11-30",
+    "title": "The quiet things",
+    "message": "One thing I never want you to forget, habibi, is that you do not have to be strong every minute; resting, asking for help, and beginning again are brave things too. I wish I could say this while holding your hand, but these words will do for now."
+  },
+  {
+    "day": 8,
+    "date": "2026-12-01",
+    "title": "The person you are",
+    "message": "My favourite thing about loving you is that there is so much more ahead of you than the problem occupying your mind right now; please do not give up on tomorrow. I am proud of you in the quiet moments too, not just the big ones."
+  },
+  {
+    "day": 9,
+    "date": "2026-12-02",
+    "title": "A little hope",
+    "message": "I wish I could pause the world for a minute and tell you: your worth is not measured by a salary, a result, a mistake, or somebody else's timeline; you matter as you are. Until I can tell you in person, let this note stand beside you. ❤️"
+  },
+  {
+    "day": 10,
+    "date": "2026-12-03",
+    "title": "A wish for you",
+    "message": "There is a quiet kind of happiness in knowing that you deserve to be celebrated for who you are today, not only for the person you hope to become someday. Your story is still opening its brightest chapters. Don't rush them."
+  },
+  {
+    "day": 11,
+    "date": "2026-12-04",
+    "title": "Our little universe",
+    "message": "Baby, I hope you remember that you deserve a life that feels peaceful from the inside, not just one that looks successful from the outside. May life meet your effort with the goodness you deserve, habibi."
+  },
+  {
+    "day": 12,
+    "date": "2026-12-05",
+    "title": "The road ahead",
+    "message": "Somewhere between all our conversations, I realised that you are not behind; you are becoming, and there is beauty in a journey that is still unfolding. No pressure to be perfect. Just keep being wonderfully, honestly you."
+  },
+  {
+    "day": 13,
+    "date": "2026-12-06",
+    "title": "A little reminder",
+    "message": "I may not always find the perfect words, but I want you to chase your ambitions without forgetting to eat, sleep, breathe, and enjoy the life you are working so hard to build. Whatever this day brings, please don't forget to look after my favourite human."
+  },
+  {
+    "day": 14,
+    "date": "2026-12-07",
+    "title": "A note from me",
+    "message": "Papa, if I could leave one thought beside you today, it would be this: the world may see what you do, but I hope you also recognise the good heart and effort behind it. And if you forget, come back to this note. I'll say it again: you matter so much."
+  },
+  {
+    "day": 15,
+    "date": "2026-12-08",
+    "title": "A softer day",
+    "message": "Whenever life feels uncertain, I want you to know that you can change your mind, take a different road, and learn something new without calling any of it failure. I hope you smile a little after reading this. That would make my day."
+  },
+  {
+    "day": 16,
+    "date": "2026-12-09",
+    "title": "Still becoming",
+    "message": "Before your day gets busy, let me remind you: your effort counts even when nobody applauds, and every small step is quietly building the future you want. Keep a little faith in yourself. I have plenty of it for you."
+  },
+  {
+    "day": 17,
+    "date": "2026-12-10",
+    "title": "Your dreams",
+    "message": "Habibi, there is something I wish you could see as clearly as I do: I hope you stop being so hard on yourself for not having everything figured out; nobody arrives at life with all the answers. I hope you carry this reminder with you until the day ends. Yours, in all the little ways. ❤️"
+  },
+  {
+    "day": 18,
+    "date": "2026-12-11",
+    "title": "On ordinary days",
+    "message": "Today, I am sending you a small reminder: I admire the way you keep learning, adjusting, and finding your feet even when the road does not look simple. May you always find a reason to believe in the good that is coming."
+  },
+  {
+    "day": 19,
+    "date": "2026-12-12",
+    "title": "My favourite human",
+    "message": "On days when your thoughts feel too loud, remember: I love the tiny world made of our inside jokes, familiar words, unexpected conversations, and memories only we understand. That's all this little star came to tell you today, baby. ✨"
+  },
+  {
+    "day": 20,
+    "date": "2026-12-13",
+    "title": "Your own pace",
+    "message": "Ammu, let this little note find you exactly when you need it: I hope you keep room in your heart for wonder, laughter, and the beautiful surprises that have not found you yet. You never have to earn the right to be cared for. Be gentle with yourself."
+  },
+  {
+    "day": 21,
+    "date": "2026-12-14",
+    "title": "Keep this close",
+    "message": "I hope you give yourself a little credit today, because I hope you keep choosing what is right for your peace, your growth, and the future you want to create. Go gently today, papa. You are doing better than you think."
+  },
+  {
+    "day": 22,
+    "date": "2026-12-15",
+    "title": "Something I admire",
+    "message": "I hope this message feels like a gentle hand in yours, because I notice the little things: your expressions, your humour, your habits, and the way an ordinary moment becomes a memory with you. I hope you feel loved, believed in, and a little less alone today."
+  },
+  {
+    "day": 23,
+    "date": "2026-12-16",
+    "title": "The smallest details",
+    "message": "My love, even on an ordinary day like this, I wish you more mornings that feel hopeful, more evenings that feel calm, and more reasons to laugh without holding back. Keep going, my love; I believe in the person you are becoming."
+  },
+  {
+    "day": 24,
+    "date": "2026-12-17",
+    "title": "A place to breathe",
+    "message": "If I were sitting beside you right now, I would tell you: even if today is messy, it is only one page; it cannot decide the ending of your story. You are loved on your ordinary days, too. Especially on those days. ❤️"
+  },
+  {
+    "day": 25,
+    "date": "2026-12-18",
+    "title": "A heartful reminder",
+    "message": "You might not notice it every day, but you are allowed to grow at your own pace; your life is not a race and your dreams are still worth reaching for. Take a breath, lift your head, and give tomorrow another chance."
+  },
+  {
+    "day": 26,
+    "date": "2026-12-19",
+    "title": "A little courage",
+    "message": "If today has been a long one, baby, your kindness, your silly side, your determination, and your imperfect human moments are all part of the person I cherish. I'm always cheering for you, one little day at a time. ❤️"
+  },
+  {
+    "day": 27,
+    "date": "2026-12-20",
+    "title": "The quiet things",
+    "message": "One thing I never want you to forget, habibi, is that you do not have to be strong every minute; resting, asking for help, and beginning again are brave things too. I wish I could say this while holding your hand, but these words will do for now."
+  },
+  {
+    "day": 28,
+    "date": "2026-12-21",
+    "title": "The person you are",
+    "message": "My favourite thing about loving you is that there is so much more ahead of you than the problem occupying your mind right now; please do not give up on tomorrow. I am proud of you in the quiet moments too, not just the big ones."
+  },
+  {
+    "day": 29,
+    "date": "2026-12-22",
+    "title": "A little hope",
+    "message": "I wish I could pause the world for a minute and tell you: your worth is not measured by a salary, a result, a mistake, or somebody else's timeline; you matter as you are. Until I can tell you in person, let this note stand beside you. ❤️"
+  },
+  {
+    "day": 30,
+    "date": "2026-12-23",
+    "title": "A wish for you",
+    "message": "There is a quiet kind of happiness in knowing that you deserve to be celebrated for who you are today, not only for the person you hope to become someday. Your story is still opening its brightest chapters. Don't rush them."
+  },
+  {
+    "day": 31,
+    "date": "2026-12-24",
+    "title": "Our little universe",
+    "message": "Baby, I hope you remember that you deserve a life that feels peaceful from the inside, not just one that looks successful from the outside. May life meet your effort with the goodness you deserve, habibi."
+  },
+  {
+    "day": 32,
+    "date": "2026-12-25",
+    "title": "The road ahead",
+    "message": "Somewhere between all our conversations, I realised that you are not behind; you are becoming, and there is beauty in a journey that is still unfolding. No pressure to be perfect. Just keep being wonderfully, honestly you."
+  },
+  {
+    "day": 33,
+    "date": "2026-12-26",
+    "title": "A little reminder",
+    "message": "I may not always find the perfect words, but I want you to chase your ambitions without forgetting to eat, sleep, breathe, and enjoy the life you are working so hard to build. Whatever this day brings, please don't forget to look after my favourite human."
+  },
+  {
+    "day": 34,
+    "date": "2026-12-27",
+    "title": "The conversations that changed the tone",
+    "message": "Do you remember December 27? The day our conversations started becoming a little more daring, a little more playful, and unmistakably ours. I smile thinking about how one conversation led to another and how easily we found a new way to make each other blush. I love that cheeky chapter of our story, habibi. Some memories make me smile quietly; this one still makes me grin."
+  },
+  {
+    "day": 35,
+    "date": "2026-12-28",
+    "title": "A softer day",
+    "message": "Whenever life feels uncertain, I want you to know that you can change your mind, take a different road, and learn something new without calling any of it failure. I hope you smile a little after reading this. That would make my day."
+  },
+  {
+    "day": 36,
+    "date": "2026-12-29",
+    "title": "A road that became a memory",
+    "message": "December 29 will always take me back to Thanjavur and that little chapter we got to experience together. Places become special because of the people beside us, and that trip became more than just a destination in my memory. I hope we get to collect many more journeys, silly photographs, unexpected detours, and stories that we will bring up years later. Wherever we go, I hope we keep finding joy in the journey."
+  },
+  {
+    "day": 37,
+    "date": "2026-12-30",
+    "title": "Your dreams",
+    "message": "Habibi, there is something I wish you could see as clearly as I do: I hope you stop being so hard on yourself for not having everything figured out; nobody arrives at life with all the answers. I hope you carry this reminder with you until the day ends. Yours, in all the little ways. ❤️"
+  },
+  {
+    "day": 38,
+    "date": "2026-12-31",
+    "title": "On ordinary days",
+    "message": "Today, I am sending you a small reminder: I admire the way you keep learning, adjusting, and finding your feet even when the road does not look simple. May you always find a reason to believe in the good that is coming."
+  },
+  {
+    "day": 39,
+    "date": "2027-01-01",
+    "title": "My favourite human",
+    "message": "On days when your thoughts feel too loud, remember: I love the tiny world made of our inside jokes, familiar words, unexpected conversations, and memories only we understand. That's all this little star came to tell you today, baby. ✨"
+  },
+  {
+    "day": 40,
+    "date": "2027-01-02",
+    "title": "Your own pace",
+    "message": "Ammu, let this little note find you exactly when you need it: I hope you keep room in your heart for wonder, laughter, and the beautiful surprises that have not found you yet. You never have to earn the right to be cared for. Be gentle with yourself."
+  },
+  {
+    "day": 41,
+    "date": "2027-01-03",
+    "title": "Keep this close",
+    "message": "I hope you give yourself a little credit today, because I hope you keep choosing what is right for your peace, your growth, and the future you want to create. Go gently today, papa. You are doing better than you think."
+  },
+  {
+    "day": 42,
+    "date": "2027-01-04",
+    "title": "Something I admire",
+    "message": "I hope this message feels like a gentle hand in yours, because I notice the little things: your expressions, your humour, your habits, and the way an ordinary moment becomes a memory with you. I hope you feel loved, believed in, and a little less alone today."
+  },
+  {
+    "day": 43,
+    "date": "2027-01-05",
+    "title": "The smallest details",
+    "message": "My love, even on an ordinary day like this, I wish you more mornings that feel hopeful, more evenings that feel calm, and more reasons to laugh without holding back. Keep going, my love; I believe in the person you are becoming."
+  },
+  {
+    "day": 44,
+    "date": "2027-01-06",
+    "title": "A place to breathe",
+    "message": "If I were sitting beside you right now, I would tell you: even if today is messy, it is only one page; it cannot decide the ending of your story. You are loved on your ordinary days, too. Especially on those days. ❤️"
+  },
+  {
+    "day": 45,
+    "date": "2027-01-07",
+    "title": "A heartful reminder",
+    "message": "You might not notice it every day, but you are allowed to grow at your own pace; your life is not a race and your dreams are still worth reaching for. Take a breath, lift your head, and give tomorrow another chance."
+  },
+  {
+    "day": 46,
+    "date": "2027-01-08",
+    "title": "A little courage",
+    "message": "If today has been a long one, baby, your kindness, your silly side, your determination, and your imperfect human moments are all part of the person I cherish. I'm always cheering for you, one little day at a time. ❤️"
+  },
+  {
+    "day": 47,
+    "date": "2027-01-09",
+    "title": "The quiet things",
+    "message": "One thing I never want you to forget, habibi, is that you do not have to be strong every minute; resting, asking for help, and beginning again are brave things too. I wish I could say this while holding your hand, but these words will do for now."
+  },
+  {
+    "day": 48,
+    "date": "2027-01-10",
+    "title": "The person you are",
+    "message": "My favourite thing about loving you is that there is so much more ahead of you than the problem occupying your mind right now; please do not give up on tomorrow. I am proud of you in the quiet moments too, not just the big ones."
+  },
+  {
+    "day": 49,
+    "date": "2027-01-11",
+    "title": "A little hope",
+    "message": "I wish I could pause the world for a minute and tell you: your worth is not measured by a salary, a result, a mistake, or somebody else's timeline; you matter as you are. Until I can tell you in person, let this note stand beside you. ❤️"
+  },
+  {
+    "day": 50,
+    "date": "2027-01-12",
+    "title": "A wish for you",
+    "message": "There is a quiet kind of happiness in knowing that you deserve to be celebrated for who you are today, not only for the person you hope to become someday. Your story is still opening its brightest chapters. Don't rush them."
+  },
+  {
+    "day": 51,
+    "date": "2027-01-13",
+    "title": "Our little universe",
+    "message": "Baby, I hope you remember that you deserve a life that feels peaceful from the inside, not just one that looks successful from the outside. May life meet your effort with the goodness you deserve, habibi."
+  },
+  {
+    "day": 52,
+    "date": "2027-01-14",
+    "title": "The road ahead",
+    "message": "Somewhere between all our conversations, I realised that you are not behind; you are becoming, and there is beauty in a journey that is still unfolding. No pressure to be perfect. Just keep being wonderfully, honestly you."
+  },
+  {
+    "day": 53,
+    "date": "2027-01-15",
+    "title": "A little reminder",
+    "message": "I may not always find the perfect words, but I want you to chase your ambitions without forgetting to eat, sleep, breathe, and enjoy the life you are working so hard to build. Whatever this day brings, please don't forget to look after my favourite human."
+  },
+  {
+    "day": 54,
+    "date": "2027-01-16",
+    "title": "A note from me",
+    "message": "Papa, if I could leave one thought beside you today, it would be this: the world may see what you do, but I hope you also recognise the good heart and effort behind it. And if you forget, come back to this note. I'll say it again: you matter so much."
+  },
+  {
+    "day": 55,
+    "date": "2027-01-17",
+    "title": "A softer day",
+    "message": "Whenever life feels uncertain, I want you to know that you can change your mind, take a different road, and learn something new without calling any of it failure. I hope you smile a little after reading this. That would make my day."
+  },
+  {
+    "day": 56,
+    "date": "2027-01-18",
+    "title": "Still becoming",
+    "message": "Before your day gets busy, let me remind you: your effort counts even when nobody applauds, and every small step is quietly building the future you want. Keep a little faith in yourself. I have plenty of it for you."
+  },
+  {
+    "day": 57,
+    "date": "2027-01-19",
+    "title": "Your dreams",
+    "message": "Habibi, there is something I wish you could see as clearly as I do: I hope you stop being so hard on yourself for not having everything figured out; nobody arrives at life with all the answers. I hope you carry this reminder with you until the day ends. Yours, in all the little ways. ❤️"
+  },
+  {
+    "day": 58,
+    "date": "2027-01-20",
+    "title": "On ordinary days",
+    "message": "Today, I am sending you a small reminder: I admire the way you keep learning, adjusting, and finding your feet even when the road does not look simple. May you always find a reason to believe in the good that is coming."
+  },
+  {
+    "day": 59,
+    "date": "2027-01-21",
+    "title": "The kiss I didn't expect",
+    "message": "January 21 lives in a very particular corner of my heart. Our first unexpected kiss — one of those moments that can make time feel like it has briefly forgotten to move. I don't need to make it sound grand; the sweetness is in how unexpectedly it became a memory I still carry. If I could revisit one second from that day, I would probably smile before it even happened. ❤️"
+  },
+  {
+    "day": 60,
+    "date": "2027-01-22",
+    "title": "Your own pace",
+    "message": "Ammu, let this little note find you exactly when you need it: I hope you keep room in your heart for wonder, laughter, and the beautiful surprises that have not found you yet. You never have to earn the right to be cared for. Be gentle with yourself."
+  },
+  {
+    "day": 61,
+    "date": "2027-01-23",
+    "title": "Keep this close",
+    "message": "I hope you give yourself a little credit today, because I hope you keep choosing what is right for your peace, your growth, and the future you want to create. Go gently today, papa. You are doing better than you think."
+  },
+  {
+    "day": 62,
+    "date": "2027-01-24",
+    "title": "Something I admire",
+    "message": "I hope this message feels like a gentle hand in yours, because I notice the little things: your expressions, your humour, your habits, and the way an ordinary moment becomes a memory with you. I hope you feel loved, believed in, and a little less alone today."
+  },
+  {
+    "day": 63,
+    "date": "2027-01-25",
+    "title": "The smallest details",
+    "message": "My love, even on an ordinary day like this, I wish you more mornings that feel hopeful, more evenings that feel calm, and more reasons to laugh without holding back. Keep going, my love; I believe in the person you are becoming."
+  },
+  {
+    "day": 64,
+    "date": "2027-01-26",
+    "title": "A place to breathe",
+    "message": "If I were sitting beside you right now, I would tell you: even if today is messy, it is only one page; it cannot decide the ending of your story. You are loved on your ordinary days, too. Especially on those days. ❤️"
+  },
+  {
+    "day": 65,
+    "date": "2027-01-27",
+    "title": "A heartful reminder",
+    "message": "You might not notice it every day, but you are allowed to grow at your own pace; your life is not a race and your dreams are still worth reaching for. Take a breath, lift your head, and give tomorrow another chance."
+  },
+  {
+    "day": 66,
+    "date": "2027-01-28",
+    "title": "A little courage",
+    "message": "If today has been a long one, baby, your kindness, your silly side, your determination, and your imperfect human moments are all part of the person I cherish. I'm always cheering for you, one little day at a time. ❤️"
+  },
+  {
+    "day": 67,
+    "date": "2027-01-29",
+    "title": "The quiet things",
+    "message": "One thing I never want you to forget, habibi, is that you do not have to be strong every minute; resting, asking for help, and beginning again are brave things too. I wish I could say this while holding your hand, but these words will do for now."
+  },
+  {
+    "day": 68,
+    "date": "2027-01-30",
+    "title": "The person you are",
+    "message": "My favourite thing about loving you is that there is so much more ahead of you than the problem occupying your mind right now; please do not give up on tomorrow. I am proud of you in the quiet moments too, not just the big ones."
+  },
+  {
+    "day": 69,
+    "date": "2027-01-31",
+    "title": "A little hope",
+    "message": "I wish I could pause the world for a minute and tell you: your worth is not measured by a salary, a result, a mistake, or somebody else's timeline; you matter as you are. Until I can tell you in person, let this note stand beside you. ❤️"
+  },
+  {
+    "day": 70,
+    "date": "2027-02-01",
+    "title": "A wish for you",
+    "message": "There is a quiet kind of happiness in knowing that you deserve to be celebrated for who you are today, not only for the person you hope to become someday. Your story is still opening its brightest chapters. Don't rush them."
+  },
+  {
+    "day": 71,
+    "date": "2027-02-02",
+    "title": "Our little universe",
+    "message": "Baby, I hope you remember that you deserve a life that feels peaceful from the inside, not just one that looks successful from the outside. May life meet your effort with the goodness you deserve, habibi."
+  },
+  {
+    "day": 72,
+    "date": "2027-02-03",
+    "title": "The road ahead",
+    "message": "Somewhere between all our conversations, I realised that you are not behind; you are becoming, and there is beauty in a journey that is still unfolding. No pressure to be perfect. Just keep being wonderfully, honestly you."
+  },
+  {
+    "day": 73,
+    "date": "2027-02-04",
+    "title": "A little reminder",
+    "message": "I may not always find the perfect words, but I want you to chase your ambitions without forgetting to eat, sleep, breathe, and enjoy the life you are working so hard to build. Whatever this day brings, please don't forget to look after my favourite human."
+  },
+  {
+    "day": 74,
+    "date": "2027-02-05",
+    "title": "A note from me",
+    "message": "Papa, if I could leave one thought beside you today, it would be this: the world may see what you do, but I hope you also recognise the good heart and effort behind it. And if you forget, come back to this note. I'll say it again: you matter so much."
+  },
+  {
+    "day": 75,
+    "date": "2027-02-06",
+    "title": "A softer day",
+    "message": "Whenever life feels uncertain, I want you to know that you can change your mind, take a different road, and learn something new without calling any of it failure. I hope you smile a little after reading this. That would make my day."
+  },
+  {
+    "day": 76,
+    "date": "2027-02-07",
+    "title": "Rose Day — a flower for my favourite person",
+    "message": "Happy Rose Day, baby. 🌹 If I could give you a rose for every little reason I adore you, one bouquet would never be enough. Let this one stand for the tenderness I feel, the memories we keep, and the hope that our days continue blooming in their own beautiful way. You deserve softness, affection, and a thousand reasons to smile."
+  },
+  {
+    "day": 77,
+    "date": "2027-02-08",
+    "title": "Propose Day — still my answer",
+    "message": "Happy Propose Day, habibi. If life gave me the chance to choose again, with all the lessons and memories I have now, I would still want to discover this story with you. Not because every day is perfect, but because the imperfect, honest, funny, tender parts are what make it ours. My heart still has so many little yeses for you."
+  },
+  {
+    "day": 78,
+    "date": "2027-02-09",
+    "title": "Chocolate Day — a sweeter thought",
+    "message": "Happy Chocolate Day, papa. 🍫 I wish I could hand you your favourite chocolate and steal a tiny piece just to annoy you. You make life sweeter in ways that have nothing to do with sugar — through your laughter, your presence, and the little moments that stay with me long after they pass. Today, I hope something sweet finds you."
+  },
+  {
+    "day": 79,
+    "date": "2027-02-10",
+    "title": "Teddy Day — a hug in disguise",
+    "message": "Happy Teddy Day, baby. 🧸 If I could send you a teddy today, I would want it to remind you that you deserve comfort on the hard days too. Squeeze it when you need a pause, laugh at how silly this is, and remember that someone is wishing you warmth from wherever she is. Consider this a tiny hug with soft ears."
+  },
+  {
+    "day": 80,
+    "date": "2027-02-11",
+    "title": "Promise Day — the honest kind",
+    "message": "Happy Promise Day, my love. I won't promise that life will always be easy or that we will never have difficult days. I can promise to value honesty, to keep learning how to understand you, and to treat what we share with care. May we keep choosing kindness, communication, and the courage to grow — both as individuals and together."
+  },
+  {
+    "day": 81,
+    "date": "2027-02-12",
+    "title": "Hug Day — imagine me there",
+    "message": "Happy Hug Day, ammu. 🫂 If I were beside you, I would wrap my arms around you and let the hug last a little longer than necessary. No speech, no fixing everything, no pressure to explain. Just a quiet moment where you could breathe and feel cared for. Until then, let these words hold you for a second."
+  },
+  {
+    "day": 82,
+    "date": "2027-02-13",
+    "title": "Kiss Day — a little memory",
+    "message": "Happy Kiss Day, baby. 💋 Some moments stay with us not because they lasted long, but because of how they made our hearts pause. I still keep our little memories close, and I hope we make many more that bring that same shy smile to our faces. Sending you a kiss through this tiny star, with all my affection."
+  },
+  {
+    "day": 83,
+    "date": "2027-02-14",
+    "title": "Valentine's Day — my favourite choice",
+    "message": "Happy Valentine's Day, my love. ❤️ I don't need one special date to remind me that you matter, but I love having a day that gives me an excuse to say it a little louder. I hope you feel cherished not only today, but in the ordinary Tuesdays, tired evenings, silly arguments, and quiet moments too. Love, to me, is also in the everyday choosing."
+  },
+  {
+    "day": 84,
+    "date": "2027-02-15",
+    "title": "A place to breathe",
+    "message": "If I were sitting beside you right now, I would tell you: even if today is messy, it is only one page; it cannot decide the ending of your story. You are loved on your ordinary days, too. Especially on those days. ❤️"
+  },
+  {
+    "day": 85,
+    "date": "2027-02-16",
+    "title": "A heartful reminder",
+    "message": "You might not notice it every day, but you are allowed to grow at your own pace; your life is not a race and your dreams are still worth reaching for. Take a breath, lift your head, and give tomorrow another chance."
+  },
+  {
+    "day": 86,
+    "date": "2027-02-17",
+    "title": "A little courage",
+    "message": "If today has been a long one, baby, your kindness, your silly side, your determination, and your imperfect human moments are all part of the person I cherish. I'm always cheering for you, one little day at a time. ❤️"
+  },
+  {
+    "day": 87,
+    "date": "2027-02-18",
+    "title": "The quiet things",
+    "message": "One thing I never want you to forget, habibi, is that you do not have to be strong every minute; resting, asking for help, and beginning again are brave things too. I wish I could say this while holding your hand, but these words will do for now."
+  },
+  {
+    "day": 88,
+    "date": "2027-02-19",
+    "title": "The person you are",
+    "message": "My favourite thing about loving you is that there is so much more ahead of you than the problem occupying your mind right now; please do not give up on tomorrow. I am proud of you in the quiet moments too, not just the big ones."
+  },
+  {
+    "day": 89,
+    "date": "2027-02-20",
+    "title": "A little hope",
+    "message": "I wish I could pause the world for a minute and tell you: your worth is not measured by a salary, a result, a mistake, or somebody else's timeline; you matter as you are. Until I can tell you in person, let this note stand beside you. ❤️"
+  },
+  {
+    "day": 90,
+    "date": "2027-02-21",
+    "title": "A wish for you",
+    "message": "There is a quiet kind of happiness in knowing that you deserve to be celebrated for who you are today, not only for the person you hope to become someday. Your story is still opening its brightest chapters. Don't rush them."
+  },
+  {
+    "day": 91,
+    "date": "2027-02-22",
+    "title": "Our little universe",
+    "message": "Baby, I hope you remember that you deserve a life that feels peaceful from the inside, not just one that looks successful from the outside. May life meet your effort with the goodness you deserve, habibi."
+  },
+  {
+    "day": 92,
+    "date": "2027-02-23",
+    "title": "The road ahead",
+    "message": "Somewhere between all our conversations, I realised that you are not behind; you are becoming, and there is beauty in a journey that is still unfolding. No pressure to be perfect. Just keep being wonderfully, honestly you."
+  },
+  {
+    "day": 93,
+    "date": "2027-02-24",
+    "title": "A little reminder",
+    "message": "I may not always find the perfect words, but I want you to chase your ambitions without forgetting to eat, sleep, breathe, and enjoy the life you are working so hard to build. Whatever this day brings, please don't forget to look after my favourite human."
+  },
+  {
+    "day": 94,
+    "date": "2027-02-25",
+    "title": "A note from me",
+    "message": "Papa, if I could leave one thought beside you today, it would be this: the world may see what you do, but I hope you also recognise the good heart and effort behind it. And if you forget, come back to this note. I'll say it again: you matter so much."
+  },
+  {
+    "day": 95,
+    "date": "2027-02-26",
+    "title": "A softer day",
+    "message": "Whenever life feels uncertain, I want you to know that you can change your mind, take a different road, and learn something new without calling any of it failure. I hope you smile a little after reading this. That would make my day."
+  },
+  {
+    "day": 96,
+    "date": "2027-02-27",
+    "title": "Still becoming",
+    "message": "Before your day gets busy, let me remind you: your effort counts even when nobody applauds, and every small step is quietly building the future you want. Keep a little faith in yourself. I have plenty of it for you."
+  },
+  {
+    "day": 97,
+    "date": "2027-02-28",
+    "title": "Your dreams",
+    "message": "Habibi, there is something I wish you could see as clearly as I do: I hope you stop being so hard on yourself for not having everything figured out; nobody arrives at life with all the answers. I hope you carry this reminder with you until the day ends. Yours, in all the little ways. ❤️"
+  },
+  {
+    "day": 98,
+    "date": "2027-03-01",
+    "title": "On ordinary days",
+    "message": "Today, I am sending you a small reminder: I admire the way you keep learning, adjusting, and finding your feet even when the road does not look simple. May you always find a reason to believe in the good that is coming."
+  },
+  {
+    "day": 99,
+    "date": "2027-03-02",
+    "title": "My favourite human",
+    "message": "On days when your thoughts feel too loud, remember: I love the tiny world made of our inside jokes, familiar words, unexpected conversations, and memories only we understand. That's all this little star came to tell you today, baby. ✨"
+  },
+  {
+    "day": 100,
+    "date": "2027-03-03",
+    "title": "Your own pace",
+    "message": "Ammu, let this little note find you exactly when you need it: I hope you keep room in your heart for wonder, laughter, and the beautiful surprises that have not found you yet. You never have to earn the right to be cared for. Be gentle with yourself."
+  },
+  {
+    "day": 101,
+    "date": "2027-03-04",
+    "title": "Keep this close",
+    "message": "I hope you give yourself a little credit today, because I hope you keep choosing what is right for your peace, your growth, and the future you want to create. Go gently today, papa. You are doing better than you think."
+  },
+  {
+    "day": 102,
+    "date": "2027-03-05",
+    "title": "Something I admire",
+    "message": "I hope this message feels like a gentle hand in yours, because I notice the little things: your expressions, your humour, your habits, and the way an ordinary moment becomes a memory with you. I hope you feel loved, believed in, and a little less alone today."
+  },
+  {
+    "day": 103,
+    "date": "2027-03-06",
+    "title": "The smallest details",
+    "message": "My love, even on an ordinary day like this, I wish you more mornings that feel hopeful, more evenings that feel calm, and more reasons to laugh without holding back. Keep going, my love; I believe in the person you are becoming."
+  },
+  {
+    "day": 104,
+    "date": "2027-03-07",
+    "title": "A place to breathe",
+    "message": "If I were sitting beside you right now, I would tell you: even if today is messy, it is only one page; it cannot decide the ending of your story. You are loved on your ordinary days, too. Especially on those days. ❤️"
+  },
+  {
+    "day": 105,
+    "date": "2027-03-08",
+    "title": "A heartful reminder",
+    "message": "You might not notice it every day, but you are allowed to grow at your own pace; your life is not a race and your dreams are still worth reaching for. Take a breath, lift your head, and give tomorrow another chance."
+  },
+  {
+    "day": 106,
+    "date": "2027-03-09",
+    "title": "A little courage",
+    "message": "If today has been a long one, baby, your kindness, your silly side, your determination, and your imperfect human moments are all part of the person I cherish. I'm always cheering for you, one little day at a time. ❤️"
+  },
+  {
+    "day": 107,
+    "date": "2027-03-10",
+    "title": "The quiet things",
+    "message": "One thing I never want you to forget, habibi, is that you do not have to be strong every minute; resting, asking for help, and beginning again are brave things too. I wish I could say this while holding your hand, but these words will do for now."
+  },
+  {
+    "day": 108,
+    "date": "2027-03-11",
+    "title": "The person you are",
+    "message": "My favourite thing about loving you is that there is so much more ahead of you than the problem occupying your mind right now; please do not give up on tomorrow. I am proud of you in the quiet moments too, not just the big ones."
+  },
+  {
+    "day": 109,
+    "date": "2027-03-12",
+    "title": "A little hope",
+    "message": "I wish I could pause the world for a minute and tell you: your worth is not measured by a salary, a result, a mistake, or somebody else's timeline; you matter as you are. Until I can tell you in person, let this note stand beside you. ❤️"
+  },
+  {
+    "day": 110,
+    "date": "2027-03-13",
+    "title": "A wish for you",
+    "message": "There is a quiet kind of happiness in knowing that you deserve to be celebrated for who you are today, not only for the person you hope to become someday. Your story is still opening its brightest chapters. Don't rush them."
+  },
+  {
+    "day": 111,
+    "date": "2027-03-14",
+    "title": "Our little universe",
+    "message": "Baby, I hope you remember that you deserve a life that feels peaceful from the inside, not just one that looks successful from the outside. May life meet your effort with the goodness you deserve, habibi."
+  },
+  {
+    "day": 112,
+    "date": "2027-03-15",
+    "title": "The road ahead",
+    "message": "Somewhere between all our conversations, I realised that you are not behind; you are becoming, and there is beauty in a journey that is still unfolding. No pressure to be perfect. Just keep being wonderfully, honestly you."
+  },
+  {
+    "day": 113,
+    "date": "2027-03-16",
+    "title": "A little reminder",
+    "message": "I may not always find the perfect words, but I want you to chase your ambitions without forgetting to eat, sleep, breathe, and enjoy the life you are working so hard to build. Whatever this day brings, please don't forget to look after my favourite human."
+  },
+  {
+    "day": 114,
+    "date": "2027-03-17",
+    "title": "A note from me",
+    "message": "Papa, if I could leave one thought beside you today, it would be this: the world may see what you do, but I hope you also recognise the good heart and effort behind it. And if you forget, come back to this note. I'll say it again: you matter so much."
+  },
+  {
+    "day": 115,
+    "date": "2027-03-18",
+    "title": "A softer day",
+    "message": "Whenever life feels uncertain, I want you to know that you can change your mind, take a different road, and learn something new without calling any of it failure. I hope you smile a little after reading this. That would make my day."
+  },
+  {
+    "day": 116,
+    "date": "2027-03-19",
+    "title": "Still becoming",
+    "message": "Before your day gets busy, let me remind you: your effort counts even when nobody applauds, and every small step is quietly building the future you want. Keep a little faith in yourself. I have plenty of it for you."
+  },
+  {
+    "day": 117,
+    "date": "2027-03-20",
+    "title": "Your dreams",
+    "message": "Habibi, there is something I wish you could see as clearly as I do: I hope you stop being so hard on yourself for not having everything figured out; nobody arrives at life with all the answers. I hope you carry this reminder with you until the day ends. Yours, in all the little ways. ❤️"
+  },
+  {
+    "day": 118,
+    "date": "2027-03-21",
+    "title": "On ordinary days",
+    "message": "Today, I am sending you a small reminder: I admire the way you keep learning, adjusting, and finding your feet even when the road does not look simple. May you always find a reason to believe in the good that is coming."
+  },
+  {
+    "day": 119,
+    "date": "2027-03-22",
+    "title": "My favourite human",
+    "message": "On days when your thoughts feel too loud, remember: I love the tiny world made of our inside jokes, familiar words, unexpected conversations, and memories only we understand. That's all this little star came to tell you today, baby. ✨"
+  },
+  {
+    "day": 120,
+    "date": "2027-03-23",
+    "title": "Your own pace",
+    "message": "Ammu, let this little note find you exactly when you need it: I hope you keep room in your heart for wonder, laughter, and the beautiful surprises that have not found you yet. You never have to earn the right to be cared for. Be gentle with yourself."
+  },
+  {
+    "day": 121,
+    "date": "2027-03-24",
+    "title": "Keep this close",
+    "message": "I hope you give yourself a little credit today, because I hope you keep choosing what is right for your peace, your growth, and the future you want to create. Go gently today, papa. You are doing better than you think."
+  },
+  {
+    "day": 122,
+    "date": "2027-03-25",
+    "title": "Something I admire",
+    "message": "I hope this message feels like a gentle hand in yours, because I notice the little things: your expressions, your humour, your habits, and the way an ordinary moment becomes a memory with you. I hope you feel loved, believed in, and a little less alone today."
+  },
+  {
+    "day": 123,
+    "date": "2027-03-26",
+    "title": "The smallest details",
+    "message": "My love, even on an ordinary day like this, I wish you more mornings that feel hopeful, more evenings that feel calm, and more reasons to laugh without holding back. Keep going, my love; I believe in the person you are becoming."
+  },
+  {
+    "day": 124,
+    "date": "2027-03-27",
+    "title": "A place to breathe",
+    "message": "If I were sitting beside you right now, I would tell you: even if today is messy, it is only one page; it cannot decide the ending of your story. You are loved on your ordinary days, too. Especially on those days. ❤️"
+  },
+  {
+    "day": 125,
+    "date": "2027-03-28",
+    "title": "A heartful reminder",
+    "message": "You might not notice it every day, but you are allowed to grow at your own pace; your life is not a race and your dreams are still worth reaching for. Take a breath, lift your head, and give tomorrow another chance."
+  },
+  {
+    "day": 126,
+    "date": "2027-03-29",
+    "title": "A little courage",
+    "message": "If today has been a long one, baby, your kindness, your silly side, your determination, and your imperfect human moments are all part of the person I cherish. I'm always cheering for you, one little day at a time. ❤️"
+  },
+  {
+    "day": 127,
+    "date": "2027-03-30",
+    "title": "The quiet things",
+    "message": "One thing I never want you to forget, habibi, is that you do not have to be strong every minute; resting, asking for help, and beginning again are brave things too. I wish I could say this while holding your hand, but these words will do for now."
+  },
+  {
+    "day": 128,
+    "date": "2027-03-31",
+    "title": "The person you are",
+    "message": "My favourite thing about loving you is that there is so much more ahead of you than the problem occupying your mind right now; please do not give up on tomorrow. I am proud of you in the quiet moments too, not just the big ones."
+  },
+  {
+    "day": 129,
+    "date": "2027-04-01",
+    "title": "A little hope",
+    "message": "I wish I could pause the world for a minute and tell you: your worth is not measured by a salary, a result, a mistake, or somebody else's timeline; you matter as you are. Until I can tell you in person, let this note stand beside you. ❤️"
+  },
+  {
+    "day": 130,
+    "date": "2027-04-02",
+    "title": "A wish for you",
+    "message": "There is a quiet kind of happiness in knowing that you deserve to be celebrated for who you are today, not only for the person you hope to become someday. Your story is still opening its brightest chapters. Don't rush them."
+  },
+  {
+    "day": 131,
+    "date": "2027-04-03",
+    "title": "Our little universe",
+    "message": "Baby, I hope you remember that you deserve a life that feels peaceful from the inside, not just one that looks successful from the outside. May life meet your effort with the goodness you deserve, habibi."
+  },
+  {
+    "day": 132,
+    "date": "2027-04-04",
+    "title": "The road ahead",
+    "message": "Somewhere between all our conversations, I realised that you are not behind; you are becoming, and there is beauty in a journey that is still unfolding. No pressure to be perfect. Just keep being wonderfully, honestly you."
+  },
+  {
+    "day": 133,
+    "date": "2027-04-05",
+    "title": "A little reminder",
+    "message": "I may not always find the perfect words, but I want you to chase your ambitions without forgetting to eat, sleep, breathe, and enjoy the life you are working so hard to build. Whatever this day brings, please don't forget to look after my favourite human."
+  },
+  {
+    "day": 134,
+    "date": "2027-04-06",
+    "title": "A note from me",
+    "message": "Papa, if I could leave one thought beside you today, it would be this: the world may see what you do, but I hope you also recognise the good heart and effort behind it. And if you forget, come back to this note. I'll say it again: you matter so much."
+  },
+  {
+    "day": 135,
+    "date": "2027-04-07",
+    "title": "A softer day",
+    "message": "Whenever life feels uncertain, I want you to know that you can change your mind, take a different road, and learn something new without calling any of it failure. I hope you smile a little after reading this. That would make my day."
+  },
+  {
+    "day": 136,
+    "date": "2027-04-08",
+    "title": "Still becoming",
+    "message": "Before your day gets busy, let me remind you: your effort counts even when nobody applauds, and every small step is quietly building the future you want. Keep a little faith in yourself. I have plenty of it for you."
+  },
+  {
+    "day": 137,
+    "date": "2027-04-09",
+    "title": "Your dreams",
+    "message": "Habibi, there is something I wish you could see as clearly as I do: I hope you stop being so hard on yourself for not having everything figured out; nobody arrives at life with all the answers. I hope you carry this reminder with you until the day ends. Yours, in all the little ways. ❤️"
+  },
+  {
+    "day": 138,
+    "date": "2027-04-10",
+    "title": "On ordinary days",
+    "message": "Today, I am sending you a small reminder: I admire the way you keep learning, adjusting, and finding your feet even when the road does not look simple. May you always find a reason to believe in the good that is coming."
+  },
+  {
+    "day": 139,
+    "date": "2027-04-11",
+    "title": "My favourite human",
+    "message": "On days when your thoughts feel too loud, remember: I love the tiny world made of our inside jokes, familiar words, unexpected conversations, and memories only we understand. That's all this little star came to tell you today, baby. ✨"
+  },
+  {
+    "day": 140,
+    "date": "2027-04-12",
+    "title": "Your own pace",
+    "message": "Ammu, let this little note find you exactly when you need it: I hope you keep room in your heart for wonder, laughter, and the beautiful surprises that have not found you yet. You never have to earn the right to be cared for. Be gentle with yourself."
+  },
+  {
+    "day": 141,
+    "date": "2027-04-13",
+    "title": "Keep this close",
+    "message": "I hope you give yourself a little credit today, because I hope you keep choosing what is right for your peace, your growth, and the future you want to create. Go gently today, papa. You are doing better than you think."
+  },
+  {
+    "day": 142,
+    "date": "2027-04-14",
+    "title": "Something I admire",
+    "message": "I hope this message feels like a gentle hand in yours, because I notice the little things: your expressions, your humour, your habits, and the way an ordinary moment becomes a memory with you. I hope you feel loved, believed in, and a little less alone today."
+  },
+  {
+    "day": 143,
+    "date": "2027-04-15",
+    "title": "The smallest details",
+    "message": "My love, even on an ordinary day like this, I wish you more mornings that feel hopeful, more evenings that feel calm, and more reasons to laugh without holding back. Keep going, my love; I believe in the person you are becoming."
+  },
+  {
+    "day": 144,
+    "date": "2027-04-16",
+    "title": "A place to breathe",
+    "message": "If I were sitting beside you right now, I would tell you: even if today is messy, it is only one page; it cannot decide the ending of your story. You are loved on your ordinary days, too. Especially on those days. ❤️"
+  },
+  {
+    "day": 145,
+    "date": "2027-04-17",
+    "title": "A heartful reminder",
+    "message": "You might not notice it every day, but you are allowed to grow at your own pace; your life is not a race and your dreams are still worth reaching for. Take a breath, lift your head, and give tomorrow another chance."
+  },
+  {
+    "day": 146,
+    "date": "2027-04-18",
+    "title": "A little courage",
+    "message": "If today has been a long one, baby, your kindness, your silly side, your determination, and your imperfect human moments are all part of the person I cherish. I'm always cheering for you, one little day at a time. ❤️"
+  },
+  {
+    "day": 147,
+    "date": "2027-04-19",
+    "title": "The quiet things",
+    "message": "One thing I never want you to forget, habibi, is that you do not have to be strong every minute; resting, asking for help, and beginning again are brave things too. I wish I could say this while holding your hand, but these words will do for now."
+  },
+  {
+    "day": 148,
+    "date": "2027-04-20",
+    "title": "The day the universe gave me",
+    "message": "Happy birthday to me — but today, I also want to celebrate the beautiful place you hold in my life. Baby, thank you for being part of so many chapters, for the laughter and the memories, and for making certain ordinary days unforgettable. I hope we both keep growing into people who are proud of the lives we build. Today, I am grateful for my own journey and for the story that brought you into it."
+  },
+  {
+    "day": 149,
+    "date": "2027-04-21",
+    "title": "A little hope",
+    "message": "I wish I could pause the world for a minute and tell you: your worth is not measured by a salary, a result, a mistake, or somebody else's timeline; you matter as you are. Until I can tell you in person, let this note stand beside you. ❤️"
+  },
+  {
+    "day": 150,
+    "date": "2027-04-22",
+    "title": "A wish for you",
+    "message": "There is a quiet kind of happiness in knowing that you deserve to be celebrated for who you are today, not only for the person you hope to become someday. Your story is still opening its brightest chapters. Don't rush them."
+  },
+  {
+    "day": 151,
+    "date": "2027-04-23",
+    "title": "Our little universe",
+    "message": "Baby, I hope you remember that you deserve a life that feels peaceful from the inside, not just one that looks successful from the outside. May life meet your effort with the goodness you deserve, habibi."
+  },
+  {
+    "day": 152,
+    "date": "2027-04-24",
+    "title": "The road ahead",
+    "message": "Somewhere between all our conversations, I realised that you are not behind; you are becoming, and there is beauty in a journey that is still unfolding. No pressure to be perfect. Just keep being wonderfully, honestly you."
+  },
+  {
+    "day": 153,
+    "date": "2027-04-25",
+    "title": "A little reminder",
+    "message": "I may not always find the perfect words, but I want you to chase your ambitions without forgetting to eat, sleep, breathe, and enjoy the life you are working so hard to build. Whatever this day brings, please don't forget to look after my favourite human."
+  },
+  {
+    "day": 154,
+    "date": "2027-04-26",
+    "title": "A note from me",
+    "message": "Papa, if I could leave one thought beside you today, it would be this: the world may see what you do, but I hope you also recognise the good heart and effort behind it. And if you forget, come back to this note. I'll say it again: you matter so much."
+  },
+  {
+    "day": 155,
+    "date": "2027-04-27",
+    "title": "A softer day",
+    "message": "Whenever life feels uncertain, I want you to know that you can change your mind, take a different road, and learn something new without calling any of it failure. I hope you smile a little after reading this. That would make my day."
+  },
+  {
+    "day": 156,
+    "date": "2027-04-28",
+    "title": "Still becoming",
+    "message": "Before your day gets busy, let me remind you: your effort counts even when nobody applauds, and every small step is quietly building the future you want. Keep a little faith in yourself. I have plenty of it for you."
+  },
+  {
+    "day": 157,
+    "date": "2027-04-29",
+    "title": "Your dreams",
+    "message": "Habibi, there is something I wish you could see as clearly as I do: I hope you stop being so hard on yourself for not having everything figured out; nobody arrives at life with all the answers. I hope you carry this reminder with you until the day ends. Yours, in all the little ways. ❤️"
+  },
+  {
+    "day": 158,
+    "date": "2027-04-30",
+    "title": "On ordinary days",
+    "message": "Today, I am sending you a small reminder: I admire the way you keep learning, adjusting, and finding your feet even when the road does not look simple. May you always find a reason to believe in the good that is coming."
+  },
+  {
+    "day": 159,
+    "date": "2027-05-01",
+    "title": "My favourite human",
+    "message": "On days when your thoughts feel too loud, remember: I love the tiny world made of our inside jokes, familiar words, unexpected conversations, and memories only we understand. That's all this little star came to tell you today, baby. ✨"
+  },
+  {
+    "day": 160,
+    "date": "2027-05-02",
+    "title": "Your own pace",
+    "message": "Ammu, let this little note find you exactly when you need it: I hope you keep room in your heart for wonder, laughter, and the beautiful surprises that have not found you yet. You never have to earn the right to be cared for. Be gentle with yourself."
+  },
+  {
+    "day": 161,
+    "date": "2027-05-03",
+    "title": "Keep this close",
+    "message": "I hope you give yourself a little credit today, because I hope you keep choosing what is right for your peace, your growth, and the future you want to create. Go gently today, papa. You are doing better than you think."
+  },
+  {
+    "day": 162,
+    "date": "2027-05-04",
+    "title": "Something I admire",
+    "message": "I hope this message feels like a gentle hand in yours, because I notice the little things: your expressions, your humour, your habits, and the way an ordinary moment becomes a memory with you. I hope you feel loved, believed in, and a little less alone today."
+  },
+  {
+    "day": 163,
+    "date": "2027-05-05",
+    "title": "The smallest details",
+    "message": "My love, even on an ordinary day like this, I wish you more mornings that feel hopeful, more evenings that feel calm, and more reasons to laugh without holding back. Keep going, my love; I believe in the person you are becoming."
+  },
+  {
+    "day": 164,
+    "date": "2027-05-06",
+    "title": "A place to breathe",
+    "message": "If I were sitting beside you right now, I would tell you: even if today is messy, it is only one page; it cannot decide the ending of your story. You are loved on your ordinary days, too. Especially on those days. ❤️"
+  },
+  {
+    "day": 165,
+    "date": "2027-05-07",
+    "title": "A heartful reminder",
+    "message": "You might not notice it every day, but you are allowed to grow at your own pace; your life is not a race and your dreams are still worth reaching for. Take a breath, lift your head, and give tomorrow another chance."
+  },
+  {
+    "day": 166,
+    "date": "2027-05-08",
+    "title": "A little courage",
+    "message": "If today has been a long one, baby, your kindness, your silly side, your determination, and your imperfect human moments are all part of the person I cherish. I'm always cheering for you, one little day at a time. ❤️"
+  },
+  {
+    "day": 167,
+    "date": "2027-05-09",
+    "title": "The quiet things",
+    "message": "One thing I never want you to forget, habibi, is that you do not have to be strong every minute; resting, asking for help, and beginning again are brave things too. I wish I could say this while holding your hand, but these words will do for now."
+  },
+  {
+    "day": 168,
+    "date": "2027-05-10",
+    "title": "The person you are",
+    "message": "My favourite thing about loving you is that there is so much more ahead of you than the problem occupying your mind right now; please do not give up on tomorrow. I am proud of you in the quiet moments too, not just the big ones."
+  },
+  {
+    "day": 169,
+    "date": "2027-05-11",
+    "title": "A little hope",
+    "message": "I wish I could pause the world for a minute and tell you: your worth is not measured by a salary, a result, a mistake, or somebody else's timeline; you matter as you are. Until I can tell you in person, let this note stand beside you. ❤️"
+  },
+  {
+    "day": 170,
+    "date": "2027-05-12",
+    "title": "A wish for you",
+    "message": "There is a quiet kind of happiness in knowing that you deserve to be celebrated for who you are today, not only for the person you hope to become someday. Your story is still opening its brightest chapters. Don't rush them."
+  },
+  {
+    "day": 171,
+    "date": "2027-05-13",
+    "title": "Our little universe",
+    "message": "Baby, I hope you remember that you deserve a life that feels peaceful from the inside, not just one that looks successful from the outside. May life meet your effort with the goodness you deserve, habibi."
+  },
+  {
+    "day": 172,
+    "date": "2027-05-14",
+    "title": "The road ahead",
+    "message": "Somewhere between all our conversations, I realised that you are not behind; you are becoming, and there is beauty in a journey that is still unfolding. No pressure to be perfect. Just keep being wonderfully, honestly you."
+  },
+  {
+    "day": 173,
+    "date": "2027-05-15",
+    "title": "A little reminder",
+    "message": "I may not always find the perfect words, but I want you to chase your ambitions without forgetting to eat, sleep, breathe, and enjoy the life you are working so hard to build. Whatever this day brings, please don't forget to look after my favourite human."
+  },
+  {
+    "day": 174,
+    "date": "2027-05-16",
+    "title": "A note from me",
+    "message": "Papa, if I could leave one thought beside you today, it would be this: the world may see what you do, but I hope you also recognise the good heart and effort behind it. And if you forget, come back to this note. I'll say it again: you matter so much."
+  },
+  {
+    "day": 175,
+    "date": "2027-05-17",
+    "title": "A softer day",
+    "message": "Whenever life feels uncertain, I want you to know that you can change your mind, take a different road, and learn something new without calling any of it failure. I hope you smile a little after reading this. That would make my day."
+  },
+  {
+    "day": 176,
+    "date": "2027-05-18",
+    "title": "Still becoming",
+    "message": "Before your day gets busy, let me remind you: your effort counts even when nobody applauds, and every small step is quietly building the future you want. Keep a little faith in yourself. I have plenty of it for you."
+  },
+  {
+    "day": 177,
+    "date": "2027-05-19",
+    "title": "Your dreams",
+    "message": "Habibi, there is something I wish you could see as clearly as I do: I hope you stop being so hard on yourself for not having everything figured out; nobody arrives at life with all the answers. I hope you carry this reminder with you until the day ends. Yours, in all the little ways. ❤️"
+  },
+  {
+    "day": 178,
+    "date": "2027-05-20",
+    "title": "On ordinary days",
+    "message": "Today, I am sending you a small reminder: I admire the way you keep learning, adjusting, and finding your feet even when the road does not look simple. May you always find a reason to believe in the good that is coming."
+  },
+  {
+    "day": 179,
+    "date": "2027-05-21",
+    "title": "My favourite human",
+    "message": "On days when your thoughts feel too loud, remember: I love the tiny world made of our inside jokes, familiar words, unexpected conversations, and memories only we understand. That's all this little star came to tell you today, baby. ✨"
+  },
+  {
+    "day": 180,
+    "date": "2027-05-22",
+    "title": "Your own pace",
+    "message": "Ammu, let this little note find you exactly when you need it: I hope you keep room in your heart for wonder, laughter, and the beautiful surprises that have not found you yet. You never have to earn the right to be cared for. Be gentle with yourself."
+  },
+  {
+    "day": 181,
+    "date": "2027-05-23",
+    "title": "Keep this close",
+    "message": "I hope you give yourself a little credit today, because I hope you keep choosing what is right for your peace, your growth, and the future you want to create. Go gently today, papa. You are doing better than you think."
+  },
+  {
+    "day": 182,
+    "date": "2027-05-24",
+    "title": "Something I admire",
+    "message": "I hope this message feels like a gentle hand in yours, because I notice the little things: your expressions, your humour, your habits, and the way an ordinary moment becomes a memory with you. I hope you feel loved, believed in, and a little less alone today."
+  },
+  {
+    "day": 183,
+    "date": "2027-05-25",
+    "title": "The smallest details",
+    "message": "My love, even on an ordinary day like this, I wish you more mornings that feel hopeful, more evenings that feel calm, and more reasons to laugh without holding back. Keep going, my love; I believe in the person you are becoming."
+  },
+  {
+    "day": 184,
+    "date": "2027-05-26",
+    "title": "A place to breathe",
+    "message": "If I were sitting beside you right now, I would tell you: even if today is messy, it is only one page; it cannot decide the ending of your story. You are loved on your ordinary days, too. Especially on those days. ❤️"
+  },
+  {
+    "day": 185,
+    "date": "2027-05-27",
+    "title": "A heartful reminder",
+    "message": "You might not notice it every day, but you are allowed to grow at your own pace; your life is not a race and your dreams are still worth reaching for. Take a breath, lift your head, and give tomorrow another chance."
+  },
+  {
+    "day": 186,
+    "date": "2027-05-28",
+    "title": "A little courage",
+    "message": "If today has been a long one, baby, your kindness, your silly side, your determination, and your imperfect human moments are all part of the person I cherish. I'm always cheering for you, one little day at a time. ❤️"
+  },
+  {
+    "day": 187,
+    "date": "2027-05-29",
+    "title": "The quiet things",
+    "message": "One thing I never want you to forget, habibi, is that you do not have to be strong every minute; resting, asking for help, and beginning again are brave things too. I wish I could say this while holding your hand, but these words will do for now."
+  },
+  {
+    "day": 188,
+    "date": "2027-05-30",
+    "title": "The person you are",
+    "message": "My favourite thing about loving you is that there is so much more ahead of you than the problem occupying your mind right now; please do not give up on tomorrow. I am proud of you in the quiet moments too, not just the big ones."
+  },
+  {
+    "day": 189,
+    "date": "2027-05-31",
+    "title": "A little hope",
+    "message": "I wish I could pause the world for a minute and tell you: your worth is not measured by a salary, a result, a mistake, or somebody else's timeline; you matter as you are. Until I can tell you in person, let this note stand beside you. ❤️"
+  },
+  {
+    "day": 190,
+    "date": "2027-06-01",
+    "title": "A wish for you",
+    "message": "There is a quiet kind of happiness in knowing that you deserve to be celebrated for who you are today, not only for the person you hope to become someday. Your story is still opening its brightest chapters. Don't rush them."
+  },
+  {
+    "day": 191,
+    "date": "2027-06-02",
+    "title": "Our little universe",
+    "message": "Baby, I hope you remember that you deserve a life that feels peaceful from the inside, not just one that looks successful from the outside. May life meet your effort with the goodness you deserve, habibi."
+  },
+  {
+    "day": 192,
+    "date": "2027-06-03",
+    "title": "The road ahead",
+    "message": "Somewhere between all our conversations, I realised that you are not behind; you are becoming, and there is beauty in a journey that is still unfolding. No pressure to be perfect. Just keep being wonderfully, honestly you."
+  },
+  {
+    "day": 193,
+    "date": "2027-06-04",
+    "title": "A little reminder",
+    "message": "I may not always find the perfect words, but I want you to chase your ambitions without forgetting to eat, sleep, breathe, and enjoy the life you are working so hard to build. Whatever this day brings, please don't forget to look after my favourite human."
+  },
+  {
+    "day": 194,
+    "date": "2027-06-05",
+    "title": "A note from me",
+    "message": "Papa, if I could leave one thought beside you today, it would be this: the world may see what you do, but I hope you also recognise the good heart and effort behind it. And if you forget, come back to this note. I'll say it again: you matter so much."
+  },
+  {
+    "day": 195,
+    "date": "2027-06-06",
+    "title": "A softer day",
+    "message": "Whenever life feels uncertain, I want you to know that you can change your mind, take a different road, and learn something new without calling any of it failure. I hope you smile a little after reading this. That would make my day."
+  },
+  {
+    "day": 196,
+    "date": "2027-06-07",
+    "title": "Still becoming",
+    "message": "Before your day gets busy, let me remind you: your effort counts even when nobody applauds, and every small step is quietly building the future you want. Keep a little faith in yourself. I have plenty of it for you."
+  },
+  {
+    "day": 197,
+    "date": "2027-06-08",
+    "title": "Your dreams",
+    "message": "Habibi, there is something I wish you could see as clearly as I do: I hope you stop being so hard on yourself for not having everything figured out; nobody arrives at life with all the answers. I hope you carry this reminder with you until the day ends. Yours, in all the little ways. ❤️"
+  },
+  {
+    "day": 198,
+    "date": "2027-06-09",
+    "title": "On ordinary days",
+    "message": "Today, I am sending you a small reminder: I admire the way you keep learning, adjusting, and finding your feet even when the road does not look simple. May you always find a reason to believe in the good that is coming."
+  },
+  {
+    "day": 199,
+    "date": "2027-06-10",
+    "title": "My favourite human",
+    "message": "On days when your thoughts feel too loud, remember: I love the tiny world made of our inside jokes, familiar words, unexpected conversations, and memories only we understand. That's all this little star came to tell you today, baby. ✨"
+  },
+  {
+    "day": 200,
+    "date": "2027-06-11",
+    "title": "Your own pace",
+    "message": "Ammu, let this little note find you exactly when you need it: I hope you keep room in your heart for wonder, laughter, and the beautiful surprises that have not found you yet. You never have to earn the right to be cared for. Be gentle with yourself."
+  },
+  {
+    "day": 201,
+    "date": "2027-06-12",
+    "title": "Keep this close",
+    "message": "I hope you give yourself a little credit today, because I hope you keep choosing what is right for your peace, your growth, and the future you want to create. Go gently today, papa. You are doing better than you think."
+  },
+  {
+    "day": 202,
+    "date": "2027-06-13",
+    "title": "Something I admire",
+    "message": "I hope this message feels like a gentle hand in yours, because I notice the little things: your expressions, your humour, your habits, and the way an ordinary moment becomes a memory with you. I hope you feel loved, believed in, and a little less alone today."
+  },
+  {
+    "day": 203,
+    "date": "2027-06-14",
+    "title": "The smallest details",
+    "message": "My love, even on an ordinary day like this, I wish you more mornings that feel hopeful, more evenings that feel calm, and more reasons to laugh without holding back. Keep going, my love; I believe in the person you are becoming."
+  },
+  {
+    "day": 204,
+    "date": "2027-06-15",
+    "title": "A place to breathe",
+    "message": "If I were sitting beside you right now, I would tell you: even if today is messy, it is only one page; it cannot decide the ending of your story. You are loved on your ordinary days, too. Especially on those days. ❤️"
+  },
+  {
+    "day": 205,
+    "date": "2027-06-16",
+    "title": "A heartful reminder",
+    "message": "You might not notice it every day, but you are allowed to grow at your own pace; your life is not a race and your dreams are still worth reaching for. Take a breath, lift your head, and give tomorrow another chance."
+  },
+  {
+    "day": 206,
+    "date": "2027-06-17",
+    "title": "A little courage",
+    "message": "If today has been a long one, baby, your kindness, your silly side, your determination, and your imperfect human moments are all part of the person I cherish. I'm always cheering for you, one little day at a time. ❤️"
+  },
+  {
+    "day": 207,
+    "date": "2027-06-18",
+    "title": "The quiet things",
+    "message": "One thing I never want you to forget, habibi, is that you do not have to be strong every minute; resting, asking for help, and beginning again are brave things too. I wish I could say this while holding your hand, but these words will do for now."
+  },
+  {
+    "day": 208,
+    "date": "2027-06-19",
+    "title": "The person you are",
+    "message": "My favourite thing about loving you is that there is so much more ahead of you than the problem occupying your mind right now; please do not give up on tomorrow. I am proud of you in the quiet moments too, not just the big ones."
+  },
+  {
+    "day": 209,
+    "date": "2027-06-20",
+    "title": "Happy Father's Day, Dada",
+    "message": "Happy Father's Day, Dada. ❤️ I hope the thought of the father you may become one day fills your heart with warmth, patience, and hope. I can imagine the gentle side of you that would teach, protect, laugh, and learn along the way. Whatever the future holds, I hope you always carry kindness and understanding with you. You deserve a life filled with love in every form."
+  },
+  {
+    "day": 210,
+    "date": "2027-06-21",
+    "title": "A wish for you",
+    "message": "There is a quiet kind of happiness in knowing that you deserve to be celebrated for who you are today, not only for the person you hope to become someday. Your story is still opening its brightest chapters. Don't rush them."
+  },
+  {
+    "day": 211,
+    "date": "2027-06-22",
+    "title": "Our little universe",
+    "message": "Baby, I hope you remember that you deserve a life that feels peaceful from the inside, not just one that looks successful from the outside. May life meet your effort with the goodness you deserve, habibi."
+  },
+  {
+    "day": 212,
+    "date": "2027-06-23",
+    "title": "The road ahead",
+    "message": "Somewhere between all our conversations, I realised that you are not behind; you are becoming, and there is beauty in a journey that is still unfolding. No pressure to be perfect. Just keep being wonderfully, honestly you."
+  },
+  {
+    "day": 213,
+    "date": "2027-06-24",
+    "title": "A little reminder",
+    "message": "I may not always find the perfect words, but I want you to chase your ambitions without forgetting to eat, sleep, breathe, and enjoy the life you are working so hard to build. Whatever this day brings, please don't forget to look after my favourite human."
+  },
+  {
+    "day": 214,
+    "date": "2027-06-25",
+    "title": "A note from me",
+    "message": "Papa, if I could leave one thought beside you today, it would be this: the world may see what you do, but I hope you also recognise the good heart and effort behind it. And if you forget, come back to this note. I'll say it again: you matter so much."
+  },
+  {
+    "day": 215,
+    "date": "2027-06-26",
+    "title": "A softer day",
+    "message": "Whenever life feels uncertain, I want you to know that you can change your mind, take a different road, and learn something new without calling any of it failure. I hope you smile a little after reading this. That would make my day."
+  },
+  {
+    "day": 216,
+    "date": "2027-06-27",
+    "title": "Still becoming",
+    "message": "Before your day gets busy, let me remind you: your effort counts even when nobody applauds, and every small step is quietly building the future you want. Keep a little faith in yourself. I have plenty of it for you."
+  },
+  {
+    "day": 217,
+    "date": "2027-06-28",
+    "title": "Your dreams",
+    "message": "Habibi, there is something I wish you could see as clearly as I do: I hope you stop being so hard on yourself for not having everything figured out; nobody arrives at life with all the answers. I hope you carry this reminder with you until the day ends. Yours, in all the little ways. ❤️"
+  },
+  {
+    "day": 218,
+    "date": "2027-06-29",
+    "title": "On ordinary days",
+    "message": "Today, I am sending you a small reminder: I admire the way you keep learning, adjusting, and finding your feet even when the road does not look simple. May you always find a reason to believe in the good that is coming."
+  },
+  {
+    "day": 219,
+    "date": "2027-06-30",
+    "title": "My favourite human",
+    "message": "On days when your thoughts feel too loud, remember: I love the tiny world made of our inside jokes, familiar words, unexpected conversations, and memories only we understand. That's all this little star came to tell you today, baby. ✨"
+  },
+  {
+    "day": 220,
+    "date": "2027-07-01",
+    "title": "Your own pace",
+    "message": "Ammu, let this little note find you exactly when you need it: I hope you keep room in your heart for wonder, laughter, and the beautiful surprises that have not found you yet. You never have to earn the right to be cared for. Be gentle with yourself."
+  },
+  {
+    "day": 221,
+    "date": "2027-07-02",
+    "title": "Keep this close",
+    "message": "I hope you give yourself a little credit today, because I hope you keep choosing what is right for your peace, your growth, and the future you want to create. Go gently today, papa. You are doing better than you think."
+  },
+  {
+    "day": 222,
+    "date": "2027-07-03",
+    "title": "Something I admire",
+    "message": "I hope this message feels like a gentle hand in yours, because I notice the little things: your expressions, your humour, your habits, and the way an ordinary moment becomes a memory with you. I hope you feel loved, believed in, and a little less alone today."
+  },
+  {
+    "day": 223,
+    "date": "2027-07-04",
+    "title": "The smallest details",
+    "message": "My love, even on an ordinary day like this, I wish you more mornings that feel hopeful, more evenings that feel calm, and more reasons to laugh without holding back. Keep going, my love; I believe in the person you are becoming."
+  },
+  {
+    "day": 224,
+    "date": "2027-07-05",
+    "title": "A place to breathe",
+    "message": "If I were sitting beside you right now, I would tell you: even if today is messy, it is only one page; it cannot decide the ending of your story. You are loved on your ordinary days, too. Especially on those days. ❤️"
+  },
+  {
+    "day": 225,
+    "date": "2027-07-06",
+    "title": "A heartful reminder",
+    "message": "You might not notice it every day, but you are allowed to grow at your own pace; your life is not a race and your dreams are still worth reaching for. Take a breath, lift your head, and give tomorrow another chance."
+  },
+  {
+    "day": 226,
+    "date": "2027-07-07",
+    "title": "A little courage",
+    "message": "If today has been a long one, baby, your kindness, your silly side, your determination, and your imperfect human moments are all part of the person I cherish. I'm always cheering for you, one little day at a time. ❤️"
+  },
+  {
+    "day": 227,
+    "date": "2027-07-08",
+    "title": "The quiet things",
+    "message": "One thing I never want you to forget, habibi, is that you do not have to be strong every minute; resting, asking for help, and beginning again are brave things too. I wish I could say this while holding your hand, but these words will do for now."
+  },
+  {
+    "day": 228,
+    "date": "2027-07-09",
+    "title": "The person you are",
+    "message": "My favourite thing about loving you is that there is so much more ahead of you than the problem occupying your mind right now; please do not give up on tomorrow. I am proud of you in the quiet moments too, not just the big ones."
+  },
+  {
+    "day": 229,
+    "date": "2027-07-10",
+    "title": "A little hope",
+    "message": "I wish I could pause the world for a minute and tell you: your worth is not measured by a salary, a result, a mistake, or somebody else's timeline; you matter as you are. Until I can tell you in person, let this note stand beside you. ❤️"
+  },
+  {
+    "day": 230,
+    "date": "2027-07-11",
+    "title": "A wish for you",
+    "message": "There is a quiet kind of happiness in knowing that you deserve to be celebrated for who you are today, not only for the person you hope to become someday. Your story is still opening its brightest chapters. Don't rush them."
+  },
+  {
+    "day": 231,
+    "date": "2027-07-12",
+    "title": "Our little universe",
+    "message": "Baby, I hope you remember that you deserve a life that feels peaceful from the inside, not just one that looks successful from the outside. May life meet your effort with the goodness you deserve, habibi."
+  },
+  {
+    "day": 232,
+    "date": "2027-07-13",
+    "title": "The road ahead",
+    "message": "Somewhere between all our conversations, I realised that you are not behind; you are becoming, and there is beauty in a journey that is still unfolding. No pressure to be perfect. Just keep being wonderfully, honestly you."
+  },
+  {
+    "day": 233,
+    "date": "2027-07-14",
+    "title": "A little reminder",
+    "message": "I may not always find the perfect words, but I want you to chase your ambitions without forgetting to eat, sleep, breathe, and enjoy the life you are working so hard to build. Whatever this day brings, please don't forget to look after my favourite human."
+  },
+  {
+    "day": 234,
+    "date": "2027-07-15",
+    "title": "A note from me",
+    "message": "Papa, if I could leave one thought beside you today, it would be this: the world may see what you do, but I hope you also recognise the good heart and effort behind it. And if you forget, come back to this note. I'll say it again: you matter so much."
+  },
+  {
+    "day": 235,
+    "date": "2027-07-16",
+    "title": "A softer day",
+    "message": "Whenever life feels uncertain, I want you to know that you can change your mind, take a different road, and learn something new without calling any of it failure. I hope you smile a little after reading this. That would make my day."
+  },
+  {
+    "day": 236,
+    "date": "2027-07-17",
+    "title": "Still becoming",
+    "message": "Before your day gets busy, let me remind you: your effort counts even when nobody applauds, and every small step is quietly building the future you want. Keep a little faith in yourself. I have plenty of it for you."
+  },
+  {
+    "day": 237,
+    "date": "2027-07-18",
+    "title": "Your dreams",
+    "message": "Habibi, there is something I wish you could see as clearly as I do: I hope you stop being so hard on yourself for not having everything figured out; nobody arrives at life with all the answers. I hope you carry this reminder with you until the day ends. Yours, in all the little ways. ❤️"
+  },
+  {
+    "day": 238,
+    "date": "2027-07-19",
+    "title": "On ordinary days",
+    "message": "Today, I am sending you a small reminder: I admire the way you keep learning, adjusting, and finding your feet even when the road does not look simple. May you always find a reason to believe in the good that is coming."
+  },
+  {
+    "day": 239,
+    "date": "2027-07-20",
+    "title": "My favourite human",
+    "message": "On days when your thoughts feel too loud, remember: I love the tiny world made of our inside jokes, familiar words, unexpected conversations, and memories only we understand. That's all this little star came to tell you today, baby. ✨"
+  },
+  {
+    "day": 240,
+    "date": "2027-07-21",
+    "title": "Your own pace",
+    "message": "Ammu, let this little note find you exactly when you need it: I hope you keep room in your heart for wonder, laughter, and the beautiful surprises that have not found you yet. You never have to earn the right to be cared for. Be gentle with yourself."
+  },
+  {
+    "day": 241,
+    "date": "2027-07-22",
+    "title": "Keep this close",
+    "message": "I hope you give yourself a little credit today, because I hope you keep choosing what is right for your peace, your growth, and the future you want to create. Go gently today, papa. You are doing better than you think."
+  },
+  {
+    "day": 242,
+    "date": "2027-07-23",
+    "title": "Something I admire",
+    "message": "I hope this message feels like a gentle hand in yours, because I notice the little things: your expressions, your humour, your habits, and the way an ordinary moment becomes a memory with you. I hope you feel loved, believed in, and a little less alone today."
+  },
+  {
+    "day": 243,
+    "date": "2027-07-24",
+    "title": "The smallest details",
+    "message": "My love, even on an ordinary day like this, I wish you more mornings that feel hopeful, more evenings that feel calm, and more reasons to laugh without holding back. Keep going, my love; I believe in the person you are becoming."
+  },
+  {
+    "day": 244,
+    "date": "2027-07-25",
+    "title": "A place to breathe",
+    "message": "If I were sitting beside you right now, I would tell you: even if today is messy, it is only one page; it cannot decide the ending of your story. You are loved on your ordinary days, too. Especially on those days. ❤️"
+  },
+  {
+    "day": 245,
+    "date": "2027-07-26",
+    "title": "A heartful reminder",
+    "message": "You might not notice it every day, but you are allowed to grow at your own pace; your life is not a race and your dreams are still worth reaching for. Take a breath, lift your head, and give tomorrow another chance."
+  },
+  {
+    "day": 246,
+    "date": "2027-07-27",
+    "title": "A little courage",
+    "message": "If today has been a long one, baby, your kindness, your silly side, your determination, and your imperfect human moments are all part of the person I cherish. I'm always cheering for you, one little day at a time. ❤️"
+  },
+  {
+    "day": 247,
+    "date": "2027-07-28",
+    "title": "The quiet things",
+    "message": "One thing I never want you to forget, habibi, is that you do not have to be strong every minute; resting, asking for help, and beginning again are brave things too. I wish I could say this while holding your hand, but these words will do for now."
+  },
+  {
+    "day": 248,
+    "date": "2027-07-29",
+    "title": "The person you are",
+    "message": "My favourite thing about loving you is that there is so much more ahead of you than the problem occupying your mind right now; please do not give up on tomorrow. I am proud of you in the quiet moments too, not just the big ones."
+  },
+  {
+    "day": 249,
+    "date": "2027-07-30",
+    "title": "A little hope",
+    "message": "I wish I could pause the world for a minute and tell you: your worth is not measured by a salary, a result, a mistake, or somebody else's timeline; you matter as you are. Until I can tell you in person, let this note stand beside you. ❤️"
+  },
+  {
+    "day": 250,
+    "date": "2027-07-31",
+    "title": "A wish for you",
+    "message": "There is a quiet kind of happiness in knowing that you deserve to be celebrated for who you are today, not only for the person you hope to become someday. Your story is still opening its brightest chapters. Don't rush them."
+  },
+  {
+    "day": 251,
+    "date": "2027-08-01",
+    "title": "Friendship Day — my person and my friend",
+    "message": "Happy Friendship Day, Habibi. ❤️ One of my favourite things about us is that love doesn't have to erase friendship. I want the silly conversations, teasing, random updates, honest advice, and comfortable silence to stay part of our story. I hope I can keep being someone you can laugh with, talk to, and be completely yourself around. You are my love and one of my favourite people."
+  },
+  {
+    "day": 252,
+    "date": "2027-08-02",
+    "title": "The road ahead",
+    "message": "Somewhere between all our conversations, I realised that you are not behind; you are becoming, and there is beauty in a journey that is still unfolding. No pressure to be perfect. Just keep being wonderfully, honestly you."
+  },
+  {
+    "day": 253,
+    "date": "2027-08-03",
+    "title": "A little reminder",
+    "message": "I may not always find the perfect words, but I want you to chase your ambitions without forgetting to eat, sleep, breathe, and enjoy the life you are working so hard to build. Whatever this day brings, please don't forget to look after my favourite human."
+  },
+  {
+    "day": 254,
+    "date": "2027-08-04",
+    "title": "A note from me",
+    "message": "Papa, if I could leave one thought beside you today, it would be this: the world may see what you do, but I hope you also recognise the good heart and effort behind it. And if you forget, come back to this note. I'll say it again: you matter so much."
+  },
+  {
+    "day": 255,
+    "date": "2027-08-05",
+    "title": "A softer day",
+    "message": "Whenever life feels uncertain, I want you to know that you can change your mind, take a different road, and learn something new without calling any of it failure. I hope you smile a little after reading this. That would make my day."
+  },
+  {
+    "day": 256,
+    "date": "2027-08-06",
+    "title": "Still becoming",
+    "message": "Before your day gets busy, let me remind you: your effort counts even when nobody applauds, and every small step is quietly building the future you want. Keep a little faith in yourself. I have plenty of it for you."
+  },
+  {
+    "day": 257,
+    "date": "2027-08-07",
+    "title": "Your dreams",
+    "message": "Habibi, there is something I wish you could see as clearly as I do: I hope you stop being so hard on yourself for not having everything figured out; nobody arrives at life with all the answers. I hope you carry this reminder with you until the day ends. Yours, in all the little ways. ❤️"
+  },
+  {
+    "day": 258,
+    "date": "2027-08-08",
+    "title": "On ordinary days",
+    "message": "Today, I am sending you a small reminder: I admire the way you keep learning, adjusting, and finding your feet even when the road does not look simple. May you always find a reason to believe in the good that is coming."
+  },
+  {
+    "day": 259,
+    "date": "2027-08-09",
+    "title": "My favourite human",
+    "message": "On days when your thoughts feel too loud, remember: I love the tiny world made of our inside jokes, familiar words, unexpected conversations, and memories only we understand. That's all this little star came to tell you today, baby. ✨"
+  },
+  {
+    "day": 260,
+    "date": "2027-08-10",
+    "title": "Your own pace",
+    "message": "Ammu, let this little note find you exactly when you need it: I hope you keep room in your heart for wonder, laughter, and the beautiful surprises that have not found you yet. You never have to earn the right to be cared for. Be gentle with yourself."
+  },
+  {
+    "day": 261,
+    "date": "2027-08-11",
+    "title": "Keep this close",
+    "message": "I hope you give yourself a little credit today, because I hope you keep choosing what is right for your peace, your growth, and the future you want to create. Go gently today, papa. You are doing better than you think."
+  },
+  {
+    "day": 262,
+    "date": "2027-08-12",
+    "title": "Something I admire",
+    "message": "I hope this message feels like a gentle hand in yours, because I notice the little things: your expressions, your humour, your habits, and the way an ordinary moment becomes a memory with you. I hope you feel loved, believed in, and a little less alone today."
+  },
+  {
+    "day": 263,
+    "date": "2027-08-13",
+    "title": "The smallest details",
+    "message": "My love, even on an ordinary day like this, I wish you more mornings that feel hopeful, more evenings that feel calm, and more reasons to laugh without holding back. Keep going, my love; I believe in the person you are becoming."
+  },
+  {
+    "day": 264,
+    "date": "2027-08-14",
+    "title": "A place to breathe",
+    "message": "If I were sitting beside you right now, I would tell you: even if today is messy, it is only one page; it cannot decide the ending of your story. You are loved on your ordinary days, too. Especially on those days. ❤️"
+  },
+  {
+    "day": 265,
+    "date": "2027-08-15",
+    "title": "A heartful reminder",
+    "message": "You might not notice it every day, but you are allowed to grow at your own pace; your life is not a race and your dreams are still worth reaching for. Take a breath, lift your head, and give tomorrow another chance."
+  },
+  {
+    "day": 266,
+    "date": "2027-08-16",
+    "title": "A little courage",
+    "message": "If today has been a long one, baby, your kindness, your silly side, your determination, and your imperfect human moments are all part of the person I cherish. I'm always cheering for you, one little day at a time. ❤️"
+  },
+  {
+    "day": 267,
+    "date": "2027-08-17",
+    "title": "The quiet things",
+    "message": "One thing I never want you to forget, habibi, is that you do not have to be strong every minute; resting, asking for help, and beginning again are brave things too. I wish I could say this while holding your hand, but these words will do for now."
+  },
+  {
+    "day": 268,
+    "date": "2027-08-18",
+    "title": "The person you are",
+    "message": "My favourite thing about loving you is that there is so much more ahead of you than the problem occupying your mind right now; please do not give up on tomorrow. I am proud of you in the quiet moments too, not just the big ones."
+  },
+  {
+    "day": 269,
+    "date": "2027-08-19",
+    "title": "A little hope",
+    "message": "I wish I could pause the world for a minute and tell you: your worth is not measured by a salary, a result, a mistake, or somebody else's timeline; you matter as you are. Until I can tell you in person, let this note stand beside you. ❤️"
+  },
+  {
+    "day": 270,
+    "date": "2027-08-20",
+    "title": "A wish for you",
+    "message": "There is a quiet kind of happiness in knowing that you deserve to be celebrated for who you are today, not only for the person you hope to become someday. Your story is still opening its brightest chapters. Don't rush them."
+  },
+  {
+    "day": 271,
+    "date": "2027-08-21",
+    "title": "Our little universe",
+    "message": "Baby, I hope you remember that you deserve a life that feels peaceful from the inside, not just one that looks successful from the outside. May life meet your effort with the goodness you deserve, habibi."
+  },
+  {
+    "day": 272,
+    "date": "2027-08-22",
+    "title": "The road ahead",
+    "message": "Somewhere between all our conversations, I realised that you are not behind; you are becoming, and there is beauty in a journey that is still unfolding. No pressure to be perfect. Just keep being wonderfully, honestly you."
+  },
+  {
+    "day": 273,
+    "date": "2027-08-23",
+    "title": "A little reminder",
+    "message": "I may not always find the perfect words, but I want you to chase your ambitions without forgetting to eat, sleep, breathe, and enjoy the life you are working so hard to build. Whatever this day brings, please don't forget to look after my favourite human."
+  },
+  {
+    "day": 274,
+    "date": "2027-08-24",
+    "title": "A note from me",
+    "message": "Papa, if I could leave one thought beside you today, it would be this: the world may see what you do, but I hope you also recognise the good heart and effort behind it. And if you forget, come back to this note. I'll say it again: you matter so much."
+  },
+  {
+    "day": 275,
+    "date": "2027-08-25",
+    "title": "A softer day",
+    "message": "Whenever life feels uncertain, I want you to know that you can change your mind, take a different road, and learn something new without calling any of it failure. I hope you smile a little after reading this. That would make my day."
+  },
+  {
+    "day": 276,
+    "date": "2027-08-26",
+    "title": "Still becoming",
+    "message": "Before your day gets busy, let me remind you: your effort counts even when nobody applauds, and every small step is quietly building the future you want. Keep a little faith in yourself. I have plenty of it for you."
+  },
+  {
+    "day": 277,
+    "date": "2027-08-27",
+    "title": "Your dreams",
+    "message": "Habibi, there is something I wish you could see as clearly as I do: I hope you stop being so hard on yourself for not having everything figured out; nobody arrives at life with all the answers. I hope you carry this reminder with you until the day ends. Yours, in all the little ways. ❤️"
+  },
+  {
+    "day": 278,
+    "date": "2027-08-28",
+    "title": "On ordinary days",
+    "message": "Today, I am sending you a small reminder: I admire the way you keep learning, adjusting, and finding your feet even when the road does not look simple. May you always find a reason to believe in the good that is coming."
+  },
+  {
+    "day": 279,
+    "date": "2027-08-29",
+    "title": "My favourite human",
+    "message": "On days when your thoughts feel too loud, remember: I love the tiny world made of our inside jokes, familiar words, unexpected conversations, and memories only we understand. That's all this little star came to tell you today, baby. ✨"
+  },
+  {
+    "day": 280,
+    "date": "2027-08-30",
+    "title": "Your own pace",
+    "message": "Ammu, let this little note find you exactly when you need it: I hope you keep room in your heart for wonder, laughter, and the beautiful surprises that have not found you yet. You never have to earn the right to be cared for. Be gentle with yourself."
+  },
+  {
+    "day": 281,
+    "date": "2027-08-31",
+    "title": "Keep this close",
+    "message": "I hope you give yourself a little credit today, because I hope you keep choosing what is right for your peace, your growth, and the future you want to create. Go gently today, papa. You are doing better than you think."
+  },
+  {
+    "day": 282,
+    "date": "2027-09-01",
+    "title": "Something I admire",
+    "message": "I hope this message feels like a gentle hand in yours, because I notice the little things: your expressions, your humour, your habits, and the way an ordinary moment becomes a memory with you. I hope you feel loved, believed in, and a little less alone today."
+  },
+  {
+    "day": 283,
+    "date": "2027-09-02",
+    "title": "The smallest details",
+    "message": "My love, even on an ordinary day like this, I wish you more mornings that feel hopeful, more evenings that feel calm, and more reasons to laugh without holding back. Keep going, my love; I believe in the person you are becoming."
+  },
+  {
+    "day": 284,
+    "date": "2027-09-03",
+    "title": "A place to breathe",
+    "message": "If I were sitting beside you right now, I would tell you: even if today is messy, it is only one page; it cannot decide the ending of your story. You are loved on your ordinary days, too. Especially on those days. ❤️"
+  },
+  {
+    "day": 285,
+    "date": "2027-09-04",
+    "title": "A heartful reminder",
+    "message": "You might not notice it every day, but you are allowed to grow at your own pace; your life is not a race and your dreams are still worth reaching for. Take a breath, lift your head, and give tomorrow another chance."
+  },
+  {
+    "day": 286,
+    "date": "2027-09-05",
+    "title": "A little courage",
+    "message": "If today has been a long one, baby, your kindness, your silly side, your determination, and your imperfect human moments are all part of the person I cherish. I'm always cheering for you, one little day at a time. ❤️"
+  },
+  {
+    "day": 287,
+    "date": "2027-09-06",
+    "title": "The quiet things",
+    "message": "One thing I never want you to forget, habibi, is that you do not have to be strong every minute; resting, asking for help, and beginning again are brave things too. I wish I could say this while holding your hand, but these words will do for now."
+  },
+  {
+    "day": 288,
+    "date": "2027-09-07",
+    "title": "The person you are",
+    "message": "My favourite thing about loving you is that there is so much more ahead of you than the problem occupying your mind right now; please do not give up on tomorrow. I am proud of you in the quiet moments too, not just the big ones."
+  },
+  {
+    "day": 289,
+    "date": "2027-09-08",
+    "title": "A little hope",
+    "message": "I wish I could pause the world for a minute and tell you: your worth is not measured by a salary, a result, a mistake, or somebody else's timeline; you matter as you are. Until I can tell you in person, let this note stand beside you. ❤️"
+  },
+  {
+    "day": 290,
+    "date": "2027-09-09",
+    "title": "A wish for you",
+    "message": "There is a quiet kind of happiness in knowing that you deserve to be celebrated for who you are today, not only for the person you hope to become someday. Your story is still opening its brightest chapters. Don't rush them."
+  },
+  {
+    "day": 291,
+    "date": "2027-09-10",
+    "title": "Our little universe",
+    "message": "Baby, I hope you remember that you deserve a life that feels peaceful from the inside, not just one that looks successful from the outside. May life meet your effort with the goodness you deserve, habibi."
+  },
+  {
+    "day": 292,
+    "date": "2027-09-11",
+    "title": "The road ahead",
+    "message": "Somewhere between all our conversations, I realised that you are not behind; you are becoming, and there is beauty in a journey that is still unfolding. No pressure to be perfect. Just keep being wonderfully, honestly you."
+  },
+  {
+    "day": 293,
+    "date": "2027-09-12",
+    "title": "A little reminder",
+    "message": "I may not always find the perfect words, but I want you to chase your ambitions without forgetting to eat, sleep, breathe, and enjoy the life you are working so hard to build. Whatever this day brings, please don't forget to look after my favourite human."
+  },
+  {
+    "day": 294,
+    "date": "2027-09-13",
+    "title": "A note from me",
+    "message": "Papa, if I could leave one thought beside you today, it would be this: the world may see what you do, but I hope you also recognise the good heart and effort behind it. And if you forget, come back to this note. I'll say it again: you matter so much."
+  },
+  {
+    "day": 295,
+    "date": "2027-09-14",
+    "title": "A softer day",
+    "message": "Whenever life feels uncertain, I want you to know that you can change your mind, take a different road, and learn something new without calling any of it failure. I hope you smile a little after reading this. That would make my day."
+  },
+  {
+    "day": 296,
+    "date": "2027-09-15",
+    "title": "Still becoming",
+    "message": "Before your day gets busy, let me remind you: your effort counts even when nobody applauds, and every small step is quietly building the future you want. Keep a little faith in yourself. I have plenty of it for you."
+  },
+  {
+    "day": 297,
+    "date": "2027-09-16",
+    "title": "Your dreams",
+    "message": "Habibi, there is something I wish you could see as clearly as I do: I hope you stop being so hard on yourself for not having everything figured out; nobody arrives at life with all the answers. I hope you carry this reminder with you until the day ends. Yours, in all the little ways. ❤️"
+  },
+  {
+    "day": 298,
+    "date": "2027-09-17",
+    "title": "On ordinary days",
+    "message": "Today, I am sending you a small reminder: I admire the way you keep learning, adjusting, and finding your feet even when the road does not look simple. May you always find a reason to believe in the good that is coming."
+  },
+  {
+    "day": 299,
+    "date": "2027-09-18",
+    "title": "My favourite human",
+    "message": "On days when your thoughts feel too loud, remember: I love the tiny world made of our inside jokes, familiar words, unexpected conversations, and memories only we understand. That's all this little star came to tell you today, baby. ✨"
+  },
+  {
+    "day": 300,
+    "date": "2027-09-19",
+    "title": "Your own pace",
+    "message": "Ammu, let this little note find you exactly when you need it: I hope you keep room in your heart for wonder, laughter, and the beautiful surprises that have not found you yet. You never have to earn the right to be cared for. Be gentle with yourself."
+  },
+  {
+    "day": 301,
+    "date": "2027-09-20",
+    "title": "Keep this close",
+    "message": "I hope you give yourself a little credit today, because I hope you keep choosing what is right for your peace, your growth, and the future you want to create. Go gently today, papa. You are doing better than you think."
+  },
+  {
+    "day": 302,
+    "date": "2027-09-21",
+    "title": "Something I admire",
+    "message": "I hope this message feels like a gentle hand in yours, because I notice the little things: your expressions, your humour, your habits, and the way an ordinary moment becomes a memory with you. I hope you feel loved, believed in, and a little less alone today."
+  },
+  {
+    "day": 303,
+    "date": "2027-09-22",
+    "title": "The smallest details",
+    "message": "My love, even on an ordinary day like this, I wish you more mornings that feel hopeful, more evenings that feel calm, and more reasons to laugh without holding back. Keep going, my love; I believe in the person you are becoming."
+  },
+  {
+    "day": 304,
+    "date": "2027-09-23",
+    "title": "A place to breathe",
+    "message": "If I were sitting beside you right now, I would tell you: even if today is messy, it is only one page; it cannot decide the ending of your story. You are loved on your ordinary days, too. Especially on those days. ❤️"
+  },
+  {
+    "day": 305,
+    "date": "2027-09-24",
+    "title": "A heartful reminder",
+    "message": "You might not notice it every day, but you are allowed to grow at your own pace; your life is not a race and your dreams are still worth reaching for. Take a breath, lift your head, and give tomorrow another chance."
+  },
+  {
+    "day": 306,
+    "date": "2027-09-25",
+    "title": "A little courage",
+    "message": "If today has been a long one, baby, your kindness, your silly side, your determination, and your imperfect human moments are all part of the person I cherish. I'm always cheering for you, one little day at a time. ❤️"
+  },
+  {
+    "day": 307,
+    "date": "2027-09-26",
+    "title": "The quiet things",
+    "message": "One thing I never want you to forget, habibi, is that you do not have to be strong every minute; resting, asking for help, and beginning again are brave things too. I wish I could say this while holding your hand, but these words will do for now."
+  },
+  {
+    "day": 308,
+    "date": "2027-09-27",
+    "title": "The person you are",
+    "message": "My favourite thing about loving you is that there is so much more ahead of you than the problem occupying your mind right now; please do not give up on tomorrow. I am proud of you in the quiet moments too, not just the big ones."
+  },
+  {
+    "day": 309,
+    "date": "2027-09-28",
+    "title": "A little hope",
+    "message": "I wish I could pause the world for a minute and tell you: your worth is not measured by a salary, a result, a mistake, or somebody else's timeline; you matter as you are. Until I can tell you in person, let this note stand beside you. ❤️"
+  },
+  {
+    "day": 310,
+    "date": "2027-09-29",
+    "title": "A wish for you",
+    "message": "There is a quiet kind of happiness in knowing that you deserve to be celebrated for who you are today, not only for the person you hope to become someday. Your story is still opening its brightest chapters. Don't rush them."
+  },
+  {
+    "day": 311,
+    "date": "2027-09-30",
+    "title": "Our little universe",
+    "message": "Baby, I hope you remember that you deserve a life that feels peaceful from the inside, not just one that looks successful from the outside. May life meet your effort with the goodness you deserve, habibi."
+  },
+  {
+    "day": 312,
+    "date": "2027-10-01",
+    "title": "The road ahead",
+    "message": "Somewhere between all our conversations, I realised that you are not behind; you are becoming, and there is beauty in a journey that is still unfolding. No pressure to be perfect. Just keep being wonderfully, honestly you."
+  },
+  {
+    "day": 313,
+    "date": "2027-10-02",
+    "title": "A little reminder",
+    "message": "I may not always find the perfect words, but I want you to chase your ambitions without forgetting to eat, sleep, breathe, and enjoy the life you are working so hard to build. Whatever this day brings, please don't forget to look after my favourite human."
+  },
+  {
+    "day": 314,
+    "date": "2027-10-03",
+    "title": "A note from me",
+    "message": "Papa, if I could leave one thought beside you today, it would be this: the world may see what you do, but I hope you also recognise the good heart and effort behind it. And if you forget, come back to this note. I'll say it again: you matter so much."
+  },
+  {
+    "day": 315,
+    "date": "2027-10-04",
+    "title": "A softer day",
+    "message": "Whenever life feels uncertain, I want you to know that you can change your mind, take a different road, and learn something new without calling any of it failure. I hope you smile a little after reading this. That would make my day."
+  },
+  {
+    "day": 316,
+    "date": "2027-10-05",
+    "title": "Still becoming",
+    "message": "Before your day gets busy, let me remind you: your effort counts even when nobody applauds, and every small step is quietly building the future you want. Keep a little faith in yourself. I have plenty of it for you."
+  },
+  {
+    "day": 317,
+    "date": "2027-10-06",
+    "title": "Your dreams",
+    "message": "Habibi, there is something I wish you could see as clearly as I do: I hope you stop being so hard on yourself for not having everything figured out; nobody arrives at life with all the answers. I hope you carry this reminder with you until the day ends. Yours, in all the little ways. ❤️"
+  },
+  {
+    "day": 318,
+    "date": "2027-10-07",
+    "title": "On ordinary days",
+    "message": "Today, I am sending you a small reminder: I admire the way you keep learning, adjusting, and finding your feet even when the road does not look simple. May you always find a reason to believe in the good that is coming."
+  },
+  {
+    "day": 319,
+    "date": "2027-10-08",
+    "title": "My favourite human",
+    "message": "On days when your thoughts feel too loud, remember: I love the tiny world made of our inside jokes, familiar words, unexpected conversations, and memories only we understand. That's all this little star came to tell you today, baby. ✨"
+  },
+  {
+    "day": 320,
+    "date": "2027-10-09",
+    "title": "Your own pace",
+    "message": "Ammu, let this little note find you exactly when you need it: I hope you keep room in your heart for wonder, laughter, and the beautiful surprises that have not found you yet. You never have to earn the right to be cared for. Be gentle with yourself."
+  },
+  {
+    "day": 321,
+    "date": "2027-10-10",
+    "title": "Keep this close",
+    "message": "I hope you give yourself a little credit today, because I hope you keep choosing what is right for your peace, your growth, and the future you want to create. Go gently today, papa. You are doing better than you think."
+  },
+  {
+    "day": 322,
+    "date": "2027-10-11",
+    "title": "Something I admire",
+    "message": "I hope this message feels like a gentle hand in yours, because I notice the little things: your expressions, your humour, your habits, and the way an ordinary moment becomes a memory with you. I hope you feel loved, believed in, and a little less alone today."
+  },
+  {
+    "day": 323,
+    "date": "2027-10-12",
+    "title": "The smallest details",
+    "message": "My love, even on an ordinary day like this, I wish you more mornings that feel hopeful, more evenings that feel calm, and more reasons to laugh without holding back. Keep going, my love; I believe in the person you are becoming."
+  },
+  {
+    "day": 324,
+    "date": "2027-10-13",
+    "title": "A place to breathe",
+    "message": "If I were sitting beside you right now, I would tell you: even if today is messy, it is only one page; it cannot decide the ending of your story. You are loved on your ordinary days, too. Especially on those days. ❤️"
+  },
+  {
+    "day": 325,
+    "date": "2027-10-14",
+    "title": "A heartful reminder",
+    "message": "You might not notice it every day, but you are allowed to grow at your own pace; your life is not a race and your dreams are still worth reaching for. Take a breath, lift your head, and give tomorrow another chance."
+  },
+  {
+    "day": 326,
+    "date": "2027-10-15",
+    "title": "A little courage",
+    "message": "If today has been a long one, baby, your kindness, your silly side, your determination, and your imperfect human moments are all part of the person I cherish. I'm always cheering for you, one little day at a time. ❤️"
+  },
+  {
+    "day": 327,
+    "date": "2027-10-16",
+    "title": "The quiet things",
+    "message": "One thing I never want you to forget, habibi, is that you do not have to be strong every minute; resting, asking for help, and beginning again are brave things too. I wish I could say this while holding your hand, but these words will do for now."
+  },
+  {
+    "day": 328,
+    "date": "2027-10-17",
+    "title": "The person you are",
+    "message": "My favourite thing about loving you is that there is so much more ahead of you than the problem occupying your mind right now; please do not give up on tomorrow. I am proud of you in the quiet moments too, not just the big ones."
+  },
+  {
+    "day": 329,
+    "date": "2027-10-18",
+    "title": "A little hope",
+    "message": "I wish I could pause the world for a minute and tell you: your worth is not measured by a salary, a result, a mistake, or somebody else's timeline; you matter as you are. Until I can tell you in person, let this note stand beside you. ❤️"
+  },
+  {
+    "day": 330,
+    "date": "2027-10-19",
+    "title": "The first ride",
+    "message": "October 19 takes me back to our first bike ride. I remember how a simple ride became a memory I could revisit in my mind, with the road passing by and the feeling of sharing that little adventure with you. I hope we get many more rides — some planned, some spontaneous — and that we never stop finding happiness in the small journeys."
+  },
+  {
+    "day": 331,
+    "date": "2027-10-20",
+    "title": "Our little universe",
+    "message": "Baby, I hope you remember that you deserve a life that feels peaceful from the inside, not just one that looks successful from the outside. May life meet your effort with the goodness you deserve, habibi."
+  },
+  {
+    "day": 332,
+    "date": "2027-10-21",
+    "title": "Cake, a ring, and a memory",
+    "message": "October 21 brings back our cake and ring celebration, a little moment that became part of our story. Sometimes the most meaningful memories are made from simple things: a sweet treat, a small symbol, and the person standing beside you. I hope we keep finding reasons to celebrate, even when there is no occasion on the calendar. The little things deserve their own happiness too."
+  },
+  {
+    "day": 333,
+    "date": "2027-10-22",
+    "title": "The day you told me",
+    "message": "October 22 will always be the day your confession became part of our story. I can still think about how those words changed the shape of an ordinary day and gave me a memory I would keep returning to. Thank you for being honest with your feelings and for letting me into that moment. Some beginnings are quiet, but they stay bright for years. ❤️"
+  },
+  {
+    "day": 334,
+    "date": "2027-10-23",
+    "title": "A note from me",
+    "message": "Papa, if I could leave one thought beside you today, it would be this: the world may see what you do, but I hope you also recognise the good heart and effort behind it. And if you forget, come back to this note. I'll say it again: you matter so much."
+  },
+  {
+    "day": 335,
+    "date": "2027-10-24",
+    "title": "A softer day",
+    "message": "Whenever life feels uncertain, I want you to know that you can change your mind, take a different road, and learn something new without calling any of it failure. I hope you smile a little after reading this. That would make my day."
+  },
+  {
+    "day": 336,
+    "date": "2027-10-25",
+    "title": "Still becoming",
+    "message": "Before your day gets busy, let me remind you: your effort counts even when nobody applauds, and every small step is quietly building the future you want. Keep a little faith in yourself. I have plenty of it for you."
+  },
+  {
+    "day": 337,
+    "date": "2027-10-26",
+    "title": "Your dreams",
+    "message": "Habibi, there is something I wish you could see as clearly as I do: I hope you stop being so hard on yourself for not having everything figured out; nobody arrives at life with all the answers. I hope you carry this reminder with you until the day ends. Yours, in all the little ways. ❤️"
+  },
+  {
+    "day": 338,
+    "date": "2027-10-27",
+    "title": "On ordinary days",
+    "message": "Today, I am sending you a small reminder: I admire the way you keep learning, adjusting, and finding your feet even when the road does not look simple. May you always find a reason to believe in the good that is coming."
+  },
+  {
+    "day": 339,
+    "date": "2027-10-28",
+    "title": "My favourite human",
+    "message": "On days when your thoughts feel too loud, remember: I love the tiny world made of our inside jokes, familiar words, unexpected conversations, and memories only we understand. That's all this little star came to tell you today, baby. ✨"
+  },
+  {
+    "day": 340,
+    "date": "2027-10-29",
+    "title": "Your own pace",
+    "message": "Ammu, let this little note find you exactly when you need it: I hope you keep room in your heart for wonder, laughter, and the beautiful surprises that have not found you yet. You never have to earn the right to be cared for. Be gentle with yourself."
+  },
+  {
+    "day": 341,
+    "date": "2027-10-30",
+    "title": "Keep this close",
+    "message": "I hope you give yourself a little credit today, because I hope you keep choosing what is right for your peace, your growth, and the future you want to create. Go gently today, papa. You are doing better than you think."
+  },
+  {
+    "day": 342,
+    "date": "2027-10-31",
+    "title": "Something I admire",
+    "message": "I hope this message feels like a gentle hand in yours, because I notice the little things: your expressions, your humour, your habits, and the way an ordinary moment becomes a memory with you. I hope you feel loved, believed in, and a little less alone today."
+  },
+  {
+    "day": 343,
+    "date": "2027-11-01",
+    "title": "The smallest details",
+    "message": "My love, even on an ordinary day like this, I wish you more mornings that feel hopeful, more evenings that feel calm, and more reasons to laugh without holding back. Keep going, my love; I believe in the person you are becoming."
+  },
+  {
+    "day": 344,
+    "date": "2027-11-02",
+    "title": "A place to breathe",
+    "message": "If I were sitting beside you right now, I would tell you: even if today is messy, it is only one page; it cannot decide the ending of your story. You are loved on your ordinary days, too. Especially on those days. ❤️"
+  },
+  {
+    "day": 345,
+    "date": "2027-11-03",
+    "title": "A heartful reminder",
+    "message": "You might not notice it every day, but you are allowed to grow at your own pace; your life is not a race and your dreams are still worth reaching for. Take a breath, lift your head, and give tomorrow another chance."
+  },
+  {
+    "day": 346,
+    "date": "2027-11-04",
+    "title": "A little courage",
+    "message": "If today has been a long one, baby, your kindness, your silly side, your determination, and your imperfect human moments are all part of the person I cherish. I'm always cheering for you, one little day at a time. ❤️"
+  },
+  {
+    "day": 347,
+    "date": "2027-11-05",
+    "title": "The quiet things",
+    "message": "One thing I never want you to forget, habibi, is that you do not have to be strong every minute; resting, asking for help, and beginning again are brave things too. I wish I could say this while holding your hand, but these words will do for now."
+  },
+  {
+    "day": 348,
+    "date": "2027-11-06",
+    "title": "The person you are",
+    "message": "My favourite thing about loving you is that there is so much more ahead of you than the problem occupying your mind right now; please do not give up on tomorrow. I am proud of you in the quiet moments too, not just the big ones."
+  },
+  {
+    "day": 349,
+    "date": "2027-11-07",
+    "title": "A little hope",
+    "message": "I wish I could pause the world for a minute and tell you: your worth is not measured by a salary, a result, a mistake, or somebody else's timeline; you matter as you are. Until I can tell you in person, let this note stand beside you. ❤️"
+  },
+  {
+    "day": 350,
+    "date": "2027-11-08",
+    "title": "The day you first noticed me",
+    "message": "November 8 takes me back to college, to the day you first noticed me. It is strange and beautiful to think that a moment you may not have known would matter so much became one of the earliest pages of our story. Before all the conversations, memories, and milestones, there was that first noticing. I wonder if either of us could have imagined where this little beginning would lead. ❤️"
+  },
+  {
+    "day": 351,
+    "date": "2027-11-09",
+    "title": "Our little universe",
+    "message": "Baby, I hope you remember that you deserve a life that feels peaceful from the inside, not just one that looks successful from the outside. May life meet your effort with the goodness you deserve, habibi."
+  },
+  {
+    "day": 352,
+    "date": "2027-11-10",
+    "title": "The road ahead",
+    "message": "Somewhere between all our conversations, I realised that you are not behind; you are becoming, and there is beauty in a journey that is still unfolding. No pressure to be perfect. Just keep being wonderfully, honestly you."
+  },
+  {
+    "day": 353,
+    "date": "2027-11-11",
+    "title": "A little reminder",
+    "message": "I may not always find the perfect words, but I want you to chase your ambitions without forgetting to eat, sleep, breathe, and enjoy the life you are working so hard to build. Whatever this day brings, please don't forget to look after my favourite human."
+  },
+  {
+    "day": 354,
+    "date": "2027-11-12",
+    "title": "A note from me",
+    "message": "Papa, if I could leave one thought beside you today, it would be this: the world may see what you do, but I hope you also recognise the good heart and effort behind it. And if you forget, come back to this note. I'll say it again: you matter so much."
+  },
+  {
+    "day": 355,
+    "date": "2027-11-13",
+    "title": "A softer day",
+    "message": "Whenever life feels uncertain, I want you to know that you can change your mind, take a different road, and learn something new without calling any of it failure. I hope you smile a little after reading this. That would make my day."
+  },
+  {
+    "day": 356,
+    "date": "2027-11-14",
+    "title": "Still becoming",
+    "message": "Before your day gets busy, let me remind you: your effort counts even when nobody applauds, and every small step is quietly building the future you want. Keep a little faith in yourself. I have plenty of it for you."
+  },
+  {
+    "day": 357,
+    "date": "2027-11-15",
+    "title": "Your dreams",
+    "message": "Habibi, there is something I wish you could see as clearly as I do: I hope you stop being so hard on yourself for not having everything figured out; nobody arrives at life with all the answers. I hope you carry this reminder with you until the day ends. Yours, in all the little ways. ❤️"
+  },
+  {
+    "day": 358,
+    "date": "2027-11-16",
+    "title": "On ordinary days",
+    "message": "Today, I am sending you a small reminder: I admire the way you keep learning, adjusting, and finding your feet even when the road does not look simple. May you always find a reason to believe in the good that is coming."
+  },
+  {
+    "day": 359,
+    "date": "2027-11-17",
+    "title": "My favourite human",
+    "message": "On days when your thoughts feel too loud, remember: I love the tiny world made of our inside jokes, familiar words, unexpected conversations, and memories only we understand. That's all this little star came to tell you today, baby. ✨"
+  },
+  {
+    "day": 360,
+    "date": "2027-11-18",
+    "title": "Your own pace",
+    "message": "Ammu, let this little note find you exactly when you need it: I hope you keep room in your heart for wonder, laughter, and the beautiful surprises that have not found you yet. You never have to earn the right to be cared for. Be gentle with yourself."
+  },
+  {
+    "day": 361,
+    "date": "2027-11-19",
+    "title": "Keep this close",
+    "message": "I hope you give yourself a little credit today, because I hope you keep choosing what is right for your peace, your growth, and the future you want to create. Go gently today, papa. You are doing better than you think."
+  },
+  {
+    "day": 362,
+    "date": "2027-11-20",
+    "title": "Something I admire",
+    "message": "I hope this message feels like a gentle hand in yours, because I notice the little things: your expressions, your humour, your habits, and the way an ordinary moment becomes a memory with you. I hope you feel loved, believed in, and a little less alone today."
+  },
+  {
+    "day": 363,
+    "date": "2027-11-21",
+    "title": "The smallest details",
+    "message": "My love, even on an ordinary day like this, I wish you more mornings that feel hopeful, more evenings that feel calm, and more reasons to laugh without holding back. Keep going, my love; I believe in the person you are becoming."
+  },
+  {
+    "day": 364,
+    "date": "2027-11-22",
+    "title": "A place to breathe",
+    "message": "If I were sitting beside you right now, I would tell you: even if today is messy, it is only one page; it cannot decide the ending of your story. You are loved on your ordinary days, too. Especially on those days. ❤️"
+  },
+  {
+    "day": 365,
+    "date": "2027-11-23",
+    "title": "A heartful reminder",
+    "message": "You might not notice it every day, but you are allowed to grow at your own pace; your life is not a race and your dreams are still worth reaching for. Take a breath, lift your head, and give tomorrow another chance."
+  }
+];
+
+// Example integration inside your existing openMessage(day):
+// const entry = dailyMessages[day - 1];
+// if (!entry) return;
+// document.getElementById("message-title").textContent = entry.title;
+// document.getElementById("message-text").textContent = entry.message;
+</script>
+
+<script>
+
+/* HOME PAGE BACKGROUND STARS */
+
+for (let i = 0; i < 95; i++) {
+
+  const star = document.createElement("span");
+
+  star.className = "home-star";
+  star.style.left = Math.random() * 100 + "%";
+  star.style.top = Math.random() * 100 + "%";
+  star.style.animationDelay = Math.random() * 4 + "s";
+
+  document.getElementById("homeStars").appendChild(star);
+}
+
+
+/* DAILY MESSAGES ARE LOADED FROM a_universe_of_us_365_messages.js */
+
+/* SAVED PROGRESS */
+
+let visited = JSON.parse(
+  localStorage.getItem("visitedStars") || "[]"
+);
+
+function updateProgress() {
+
+  document.getElementById("progress").textContent =
+    visited.length + " / 365 STARS DISCOVERED";
+
+}
+ function createAmbientStars() {
+
+  const container = document.getElementById("ambient-stars");
+
+  if (!container || container.children.length > 0) return;
+
+  for (let i = 0; i < 100; i++) {
+
+    const dot = document.createElement("span");
+
+    dot.className = "ambient-dot";
+
+    dot.style.setProperty("--dot-x", Math.random() * 100 + "%");
+    dot.style.setProperty("--dot-y", Math.random() * 100 + "%");
+    dot.style.setProperty("--dot-size", (2 + Math.random() * 3) + "px");
+    dot.style.setProperty("--dot-blur", (1 + Math.random() * 2) + "px");
+    dot.style.setProperty("--dot-speed", (2 + Math.random() * 4) + "s");
+    dot.style.setProperty("--dot-delay", (Math.random() * 5) + "s");
+
+    container.appendChild(dot);
+  }
+}
+
+/* BUILD "YOU ARE MY UNIVERSE" AS A SINGLE-LINE CONSTELLATION
+   Every character uses thin geometric strokes, not filled font shapes.
+   Stars are sampled in reading order so Day 001 begins at the first stroke. */
+
+function generateLetterPoints() {
+
+  const glyphs = {
+    Y: [
+      [[0.05, 0.02], [0.50, 0.49], [0.95, 0.02]],
+      [[0.50, 0.49], [0.50, 0.98]]
+    ],
+    O: [
+      [[0.50, 0.02], [0.78, 0.10], [0.96, 0.32], [0.96, 0.68], [0.78, 0.90], [0.50, 0.98], [0.22, 0.90], [0.04, 0.68], [0.04, 0.32], [0.22, 0.10], [0.50, 0.02]]
+    ],
+    U: [
+      [[0.05, 0.02], [0.05, 0.66], [0.13, 0.86], [0.32, 0.98], [0.68, 0.98], [0.87, 0.86], [0.95, 0.66], [0.95, 0.02]]
+    ],
+    A: [
+      [[0.03, 0.98], [0.50, 0.02], [0.97, 0.98]],
+      [[0.23, 0.60], [0.77, 0.60]]
+    ],
+    R: [
+      [[0.08, 0.98], [0.08, 0.02], [0.58, 0.02], [0.88, 0.12], [0.94, 0.30], [0.86, 0.47], [0.58, 0.54], [0.08, 0.54]],
+      [[0.55, 0.54], [0.98, 0.98]]
+    ],
+    E: [
+      [[0.92, 0.02], [0.08, 0.02], [0.08, 0.98], [0.94, 0.98]],
+      [[0.08, 0.50], [0.78, 0.50]]
+    ],
+    M: [
+      [[0.04, 0.98], [0.04, 0.02], [0.50, 0.52], [0.96, 0.02], [0.96, 0.98]]
+    ],
+    N: [
+      [[0.06, 0.98], [0.06, 0.02], [0.94, 0.98], [0.94, 0.02]]
+    ],
+    I: [
+      [[0.50, 0.02], [0.50, 0.98]],
+      [[0.18, 0.02], [0.82, 0.02]],
+      [[0.18, 0.98], [0.82, 0.98]]
+    ],
+    V: [
+      [[0.03, 0.02], [0.50, 0.98], [0.97, 0.02]]
+    ],
+    S: [
+      [[0.92, 0.12], [0.72, 0.02], [0.30, 0.02], [0.08, 0.18], [0.12, 0.40], [0.50, 0.50], [0.88, 0.60], [0.92, 0.82], [0.70, 0.98], [0.28, 0.98], [0.08, 0.88]]
+    ]
+  };
+
+  const phrase = "YOU ARE MY UNIVERSE";
+  const glyphWidth = 48;
+  const glyphHeight = 158;
+  const letterGap = 12;
+  const wordGap = 28;
+  const top = 121;
+
+  let totalWidth = 0;
+  for (let i = 0; i < phrase.length; i++) {
+    totalWidth += phrase[i] === " " ? wordGap : glyphWidth;
+    if (i < phrase.length - 1 && phrase[i] !== " " && phrase[i + 1] !== " ") {
+      totalWidth += letterGap;
+    }
+  }
+
+  let cursorX = (1200 - totalWidth) / 2;
+  const strokes = [];
+
+  for (const char of phrase) {
+    if (char === " ") {
+      cursorX += wordGap;
+      continue;
+    }
+
+    for (const glyphStroke of glyphs[char]) {
+      const coords = glyphStroke.map(([x, y]) => ({
+        x: cursorX + x * glyphWidth,
+        y: top + y * glyphHeight
+      }));
+
+      let length = 0;
+      for (let i = 1; i < coords.length; i++) {
+        length += Math.hypot(coords[i].x - coords[i - 1].x,
+                             coords[i].y - coords[i - 1].y);
+      }
+      strokes.push({ coords, length });
+    }
+
+    cursorX += glyphWidth + letterGap;
+  }
+
+  const totalLength = strokes.reduce((sum, stroke) => sum + stroke.length, 0);
+  const targetCount = 365;
+  let allocated = 0;
+
+  strokes.forEach(stroke => {
+    const exact = stroke.length / totalLength * targetCount;
+    stroke.count = Math.max(2, Math.floor(exact));
+    stroke.remainder = exact - Math.floor(exact);
+    allocated += stroke.count;
+  });
+
+  // Adjust the allocations so the constellation contains exactly 365 stars.
+  while (allocated < targetCount) {
+    const best = strokes.reduce((a, b) => b.remainder > a.remainder ? b : a);
+    best.count++;
+    best.remainder = -1;
+    allocated++;
+  }
+  while (allocated > targetCount) {
+    const candidates = strokes.filter(stroke => stroke.count > 2);
+    if (!candidates.length) break;
+    candidates.sort((a, b) => a.remainder - b.remainder);
+    candidates[0].count--;
+    allocated--;
+  }
+
+  const points = [];
+  let strokeId = 0;
+
+  strokes.forEach(stroke => {
+    const segments = [];
+    let running = 0;
+    for (let i = 1; i < stroke.coords.length; i++) {
+      const a = stroke.coords[i - 1];
+      const b = stroke.coords[i];
+      const length = Math.hypot(b.x - a.x, b.y - a.y);
+      segments.push({ a, b, length, start: running });
+      running += length;
+    }
+
+    for (let i = 0; i < stroke.count; i++) {
+      const distance = stroke.length * (i / (stroke.count - 1));
+      let segment = segments[segments.length - 1];
+      for (const candidate of segments) {
+        if (distance <= candidate.start + candidate.length) {
+          segment = candidate;
+          break;
+        }
+      }
+      const ratio = segment.length === 0 ? 0 :
+        (distance - segment.start) / segment.length;
+      const dx = segment.b.x - segment.a.x;
+      const dy = segment.b.y - segment.a.y;
+      const segmentLength = Math.hypot(dx, dy) || 1;
+      points.push({
+        x: segment.a.x + dx * ratio,
+        y: segment.a.y + dy * ratio,
+        strokeId,
+        // A local normal lets us gently separate stars at crossing strokes.
+        normalX: -dy / segmentLength,
+        normalY: dx / segmentLength
+      });
+    }
+    strokeId++;
+  });
+
+  /*
+    Keep every day independently visible and clickable.
+    Some letters contain intersecting strokes (for example Y and A), so
+    independently sampled stars can land on exactly the same pixel. Nudge
+    only those cross-stroke collisions a few pixels along each stroke's
+    normal. The constellation shape and star order remain unchanged.
+  */
+  const minSeparation = 15.5;
+  const nudgeDistance = 8.25;
+  for (let pass = 0; pass < 4; pass++) {
+    let changed = false;
+    for (let i = 0; i < points.length; i++) {
+      for (let j = i + 1; j < points.length; j++) {
+        const a = points[i];
+        const b = points[j];
+        if (a.strokeId === b.strokeId) continue;
+
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const distance = Math.hypot(dx, dy);
+        if (distance >= minSeparation) continue;
+
+        // Move each star away from the other, perpendicular to its own stroke.
+        let signA = (a.normalX * dx + a.normalY * dy) >= 0 ? 1 : -1;
+        let signB = (b.normalX * -dx + b.normalY * -dy) >= 0 ? 1 : -1;
+        if (Math.abs(a.normalX * dx + a.normalY * dy) < 0.01) {
+          signA = (i % 2 === 0) ? 1 : -1;
+        }
+        if (Math.abs(b.normalX * -dx + b.normalY * -dy) < 0.01) {
+          signB = (j % 2 === 0) ? 1 : -1;
+        }
+
+        a.x += a.normalX * nudgeDistance * signA;
+        a.y += a.normalY * nudgeDistance * signA;
+        b.x += b.normalX * nudgeDistance * signB;
+        b.y += b.normalY * nudgeDistance * signB;
+        changed = true;
+      }
+    }
+    if (!changed) break;
+  }
+
+  return points;
+}
+
+
+/* CREATE 365 CLICKABLE STARS */
+
+function createStars() {
+
+  const points = generateLetterPoints();
+
+  const layer = document.getElementById("star-layer");
+  const svg = document.getElementById("connection-lines");
+
+  const ns = "http://www.w3.org/2000/svg";
+
+  /* Thin gold lines connect only consecutive stars on the same letter stroke. */
+  points.forEach((point, index) => {
+    if (index === 0) return;
+    const previous = points[index - 1];
+    if (previous.strokeId !== point.strokeId) return;
+
+    const line = document.createElementNS(ns, "line");
+    line.setAttribute("x1", previous.x);
+    line.setAttribute("y1", previous.y);
+    line.setAttribute("x2", point.x);
+    line.setAttribute("y2", point.y);
+    line.setAttribute("stroke", "#d8b66f");
+    line.setAttribute("stroke-width", "1.15");
+    line.setAttribute("stroke-opacity", "0.42");
+    svg.appendChild(line);
+  });
+
+
+  /* Each of the 365 stars is a separate button */
+
+  points.forEach((point, index) => {
+
+    const day = index + 1;
+
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.className = "day-star";
+
+    button.setAttribute("aria-label", "Open day " + day);
+
+    button.style.left = (point.x / 1200 * 100) + "%";
+    button.style.top = (point.y / 400 * 100) + "%";
+
+    const size = 7 + Math.random() * 2.5;
+
+    button.style.setProperty(
+      "--star-size",
+      size + "px"
+    );
+
+    button.style.setProperty(
+      "--twinkle-speed",
+      (1.5 + Math.random() * 2) + "s"
+    );
+
+    const symbol = document.createElement("span");
+
+    symbol.className = "star-symbol";
+    symbol.textContent = "✦";
+
+    button.appendChild(symbol);
+
+    if (visited.includes(day)) {
+      button.classList.add("visited");
+    }
+
+    button.addEventListener("click", () => {
+      openMessage(day);
+    });
+
+    layer.appendChild(button);
+
+  });
+
+  updateProgress();
+
+}
+
+
+/* OPEN A STAR */
+
+function openMessage(day) {
+
+  const entry = dailyMessages[day - 1];
+
+  if (!entry) {
+    console.error("No message found for day:", day);
+    return;
+  }
+
+  const [year, month, date] = entry.date.split("-").map(Number);
+  const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
+                      "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+  const formattedDate = String(date).padStart(2, "0") + " " + monthNames[month - 1];
+
+  document.getElementById("day-label").textContent =
+    "DAY " + String(day).padStart(3, "0") + " · " + formattedDate;
+
+  document.getElementById("message-title").textContent =
+    entry.title;
+
+  document.getElementById("message-text").textContent =
+    entry.message;
+
+  document.getElementById("message-modal").style.display =
+    "flex";
+
+  if (!visited.includes(day)) {
+
+    visited.push(day);
+
+    localStorage.setItem(
+      "visitedStars",
+      JSON.stringify(visited)
+    );
+
+    updateProgress();
+
+    document.querySelectorAll(".day-star")[day - 1]
+      ?.classList.add("visited");
+
+  }
+
+}
+
+
+/* OPEN THE FINAL CRESCENT MOON MESSAGE — separate from the 365 daily stars */
+
+function openFinalMessage() {
+  document.getElementById("day-label").textContent =
+    "A NOTE BEYOND 365 DAYS";
+
+  document.getElementById("message-title").textContent =
+    "Beyond 365 Days";
+
+  document.getElementById("message-text").textContent =
+    "If these 365 stars could tell you one thing, it would be this: you were never just a part of my days; you became the reason so many of them felt special. These 365 messages are only a small reflection of everything I feel for you. There are still countless memories to make, dreams to chase, and little moments waiting for us. And if I had to choose all over again, in every lifetime, under every sky, I would still find my way to you. Because after all these stars, all these days, and all these words… it will always be you. Forever begins with us.";
+
+  document.getElementById("message-modal").style.display = "flex";
+}
+
+
+/* CLOSE MESSAGE */
+
+function closeMessage() {
+
+  document.getElementById("message-modal").style.display =
+    "none";
+
+}
+
+function closeOutside(event) {
+
+  if (event.target.id === "message-modal") {
+    closeMessage();
+  }
+
+}
+
+
+/* PAGE NAVIGATION */
+
+function enterUniverse() {
+
+  document.getElementById("home").style.display = "none";
+
+  document.getElementById("galaxy").style.display = "block";
+
+}
+
+
+/* INITIALIZE */
+createAmbientStars();
+
+createStars();
+
+</script>
+</body>
+</html>
