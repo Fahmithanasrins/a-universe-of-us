@@ -472,7 +472,7 @@ body {
     });
 
     // Ensure this device is opted in after browser permission is granted.
-    if (OneSignal.Notifications.permissionNative === "granted") {
+    if (OneSignal.Notifications.permission) {
       await OneSignal.User.PushSubscription.optIn();
     }
   });
