@@ -470,6 +470,11 @@ body {
         scope: "/a-universe-of-us/onesignal/"
       }
     });
+
+    // Ensure this device is opted in after browser permission is granted.
+    if (OneSignal.Notifications.permissionNative === "granted") {
+      await OneSignal.User.PushSubscription.optIn();
+    }
   });
 </script>
 
