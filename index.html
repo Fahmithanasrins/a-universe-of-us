@@ -462,19 +462,17 @@ body {
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>
   window.OneSignalDeferred = window.OneSignalDeferred || [];
+
   OneSignalDeferred.push(async function(OneSignal) {
     await OneSignal.init({
       appId: "98115d72-3cd9-4d9e-b78f-8d726e269d69",
-      serviceWorkerPath: "/a-universe-of-us/onesignal/OneSignalSDKWorker.js",
+      serviceWorkerPath: "a-universe-of-us/onesignal/OneSignalSDKWorker.js",
       serviceWorkerParam: {
         scope: "/a-universe-of-us/onesignal/"
       }
     });
 
-    // Ensure this device is opted in after browser permission is granted.
-    if (OneSignal.Notifications.permission) {
-      await OneSignal.User.pushSubscription.optIn();
-    }
+    await OneSignal.User.pushSubscription.optIn();
   });
 </script>
 
