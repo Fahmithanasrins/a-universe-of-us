@@ -19,10 +19,10 @@ function dayNumber(dateString) {
 
 async function main() {
   const apiKey = process.env.ONESIGNAL_REST_API_KEY;
-  const subscriptionId = process.env.ONESIGNAL_SUBSCRIPTION_ID;
+  const subscriptionIds = (process.env.ONESIGNAL_SUBSCRIPTION_ID || "").split(",").map(id => id.trim()).filter(Boolean);
   const testMode = process.env.TEST_MODE === "true";
 
-  if (!apiKey || !subscriptionId) {
+  if (!apiKey || subscriptionIds.length === 0) {
     throw new Error("Missing GitHub Actions secrets: ONESIGNAL_REST_API_KEY and/or ONESIGNAL_SUBSCRIPTION_ID");
   }
 
@@ -49,7 +49,7 @@ async function main() {
     },
     body: JSON.stringify({
       app_id: APP_ID,
-      include_subscription_ids: [subscriptionId],
+      include_subscription_ids: subscriptionIds,
       target_channel: "push",
       headings: { en: testMode ? "A Universe of Us — Test 🌙" : "A Universe of Us 🌙" },
       contents: { en: testMode ? `TEST: ${entry.teaser}` : entry.teaser },
