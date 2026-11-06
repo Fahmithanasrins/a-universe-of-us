@@ -3254,6 +3254,14 @@ createAmbientStars();
 
 createStars();
 
+// If a push notification opens the site with ?openDay=N, reveal that day's star.
+const notificationDay = Number(new URLSearchParams(window.location.search).get("openDay"));
+if (Number.isInteger(notificationDay) && notificationDay >= 1 && notificationDay <= 365) {
+  enterUniverse();
+  openMessage(notificationDay);
+  window.history.replaceState({}, "", window.location.pathname);
+}
+
 // Register the service worker so the installed app can load its cached shell offline.
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
