@@ -1,0 +1,26 @@
+name: Daily midnight love notification
+
+on:
+  schedule:
+    - cron: "0 20 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: daily-midnight-love-notification
+  cancel-in-progress: false
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Send today's teaser
+        env:
+          ONESIGNAL_REST_API_KEY: ${{ secrets.ONESIGNAL_REST_API_KEY }}
+          ONESIGNAL_SUBSCRIPTION_ID: ${{ secrets.ONESIGNAL_SUBSCRIPTION_ID }}
+        run: node scripts/send-daily-teaser.mjs
