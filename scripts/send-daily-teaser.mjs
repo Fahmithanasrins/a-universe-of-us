@@ -20,20 +20,24 @@ function dayNumber(dateString) {
 async function main() {
   const apiKey = process.env.ONESIGNAL_REST_API_KEY;
   const subscriptionId = process.env.ONESIGNAL_SUBSCRIPTION_ID;
+  const testMode = process.env.TEST_MODE === "true";
+
   if (!apiKey || !subscriptionId) {
     throw new Error("Missing GitHub Actions secrets: ONESIGNAL_REST_API_KEY and/or ONESIGNAL_SUBSCRIPTION_ID");
   }
 
   const today = dubaiDate();
-  const day = dayNumber(today);
-  if (day < 1 || day > 365) {
+  const actualDay = dayNumber(today);
+  const day = testMode ? 1 : actualDay;
+
+  if (!testMode && (day < 1 || day > 365)) {
     console.log(`No daily message scheduled for ${today}; outside the 365-day universe.`);
     return;
   }
 
   const teasers = JSON.parse(await (await import("node:fs/promises")).readFile("daily-notification-teasers.json", "utf8"));
-  const entry = teasers.find(item => item.day === day && item.date === today);
-  if (!entry) throw new Error(`No teaser found for day ${day} / ${today}`);
+  const entry = teasers.find(item => item.day === day);
+  if (!entry) throw new Error(`No teaser found for day ${day}`);
 
   const targetUrl = `${SITE_URL}?openDay=${day}`;
   const response = await fetch("https://api.onesignal.com/notifications", {
@@ -47,8 +51,8 @@ async function main() {
       app_id: APP_ID,
       include_subscription_ids: [subscriptionId],
       target_channel: "push",
-      headings: { en: "A Universe of Us 🌙" },
-      contents: { en: entry.teaser },
+      headings: { en: testMode ? "A Universe of Us — Test 🌙" : "A Universe of Us 🌙" },
+      contents: { en: testMode ? `TEST: ${entry.teaser}` : entry.teaser },
       url: targetUrl
     })
   });
@@ -57,7 +61,7 @@ async function main() {
   if (!response.ok) {
     throw new Error(`OneSignal API ${response.status}: ${JSON.stringify(result)}`);
   }
-  console.log(`Sent Day ${day} teaser for ${today}. Notification response: ${JSON.stringify(result)}`);
+  console.log(`${testMode ? "Test notification" : "Daily notification"} sent for Day ${day}. Response: ${JSON.stringify(result)}`);
 }
 
 main().catch(error => {
