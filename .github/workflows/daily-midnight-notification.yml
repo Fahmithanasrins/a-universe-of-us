@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: "0 20 * * *"
   workflow_dispatch:
+    inputs:
+      test_mode:
+        description: "Send a one-time test using Day 1's teaser"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -23,4 +29,5 @@ jobs:
         env:
           ONESIGNAL_REST_API_KEY: ${{ secrets.ONESIGNAL_REST_API_KEY }}
           ONESIGNAL_SUBSCRIPTION_ID: ${{ secrets.ONESIGNAL_SUBSCRIPTION_ID }}
+          TEST_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.test_mode && 'true' || 'false' }}
         run: node scripts/send-daily-teaser.mjs
